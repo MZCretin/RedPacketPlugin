@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">RedPacketPlugin</string>
+
+    <string name="accessibility_service_description">开启此服务才能开启自动抢红包的功能，逢年过节红包逃不了！</string>
+    <string name="accessibility_service_label">Cretin红包插件</string>
+</resources>

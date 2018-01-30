@@ -1,0 +1,42 @@
+apply plugin: 'com.android.application'
+
+android {
+    dexOptions {
+        incremental true
+        javaMaxHeapSize "2048M"
+        preDexLibraries = false
+    }
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.cretin.www.redpacketplugin"
+        minSdkVersion 16
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled true
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+            ndk {
+                abiFilters "armeabi", "armeabi-v7a", "x86"
+//                        "arm64-v8a", "mips", "mips64", "x86_64"
+            }
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.orhanobut:hawk:2.0.1'
+}

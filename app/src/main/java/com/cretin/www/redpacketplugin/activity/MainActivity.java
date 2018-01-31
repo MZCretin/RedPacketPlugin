@@ -3,7 +3,6 @@ package com.cretin.www.redpacketplugin.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
@@ -12,7 +11,7 @@ import com.cretin.www.redpacketplugin.config.eventbus.NotifyOnActivityStop;
 
 import org.greenrobot.eventbus.EventBus;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

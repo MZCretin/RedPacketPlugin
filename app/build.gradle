@@ -38,10 +38,13 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
     compile 'org.greenrobot:eventbus:3.0.0'
-    compile 'com.orhanobut:hawk:2.0.1'
-    //3.5.5：请务必查看下面注释[1]
-    compile 'cn.bmob.android:bmob-sdk:3.5.7'
-
+    compile('cn.bmob.android:bmob-sdk:3.5.0') {
+        exclude module: 'gson'
+    }
+    compile('com.orhanobut:hawk:2.0.1') {
+        exclude module: 'gson'
+    }
+    compile 'com.github.MZCretin:ClearEditTextProject:1.3.0'
     //bmob-push：Bmob的推送包
     compile 'cn.bmob.android:bmob-push:1.0.1'
 }

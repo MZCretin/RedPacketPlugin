@@ -1,4 +1,4 @@
-package com.cretin.www.redpacketplugin;
+package com.cretin.www.redpacketplugin.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
+import com.cretin.www.redpacketplugin.R;
 import com.cretin.www.redpacketplugin.config.eventbus.NotifyOnActivityStop;
 
 import org.greenrobot.eventbus.EventBus;
@@ -17,8 +18,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().hide();
 
-        openAccessibilityServiceSettings();
+//        openAccessibilityServiceSettings();
     }
 
     public void openAccessibilityServiceSettings() {

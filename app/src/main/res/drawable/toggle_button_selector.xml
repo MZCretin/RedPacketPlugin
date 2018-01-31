@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?><!--<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+  <solid android:color="@color/app_title_color" />
+  <corners android:radius="4dp"/>
+</shape>-->
+
+<selector
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true" android:drawable="@mipmap/switch_selected" />
+    <item android:drawable="@mipmap/switch_gray" />
+</selector>

@@ -1,0 +1,101 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bg_color"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="-100dp"
+        android:src="@mipmap/avatar"/>
+
+    <com.cretin.www.clearedittext.view.ClearEditText
+        android:id="@+id/ed_username"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:drawableLeft="@mipmap/phone_icon"
+        android:drawablePadding="10dp"
+        android:hint="请输入手机号码/用户名"
+        android:inputType="text"
+        android:paddingBottom="18dp"
+        android:paddingLeft="16dp"
+        android:paddingTop="18dp"
+        android:textColor="@color/font_black1"
+        android:textSize="@dimen/text_size_14"
+        app:clearIcon="@mipmap/edittext_clear"/>
+
+    <com.cretin.www.clearedittext.view.ClearEditText
+        android:id="@+id/ed_password"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:drawableLeft="@mipmap/psw_icon"
+        android:drawablePadding="10dp"
+        android:hint="请输入密码"
+        android:inputType="textPassword"
+        android:paddingBottom="18dp"
+        android:paddingLeft="16dp"
+        android:paddingTop="18dp"
+        android:textColor="@color/font_black1"
+        android:textSize="@dimen/text_size_14"
+        app:clearIcon="@mipmap/edittext_clear"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
+            android:text="快速注册"
+            android:textColor="@color/common_color"
+            android:textSize="@dimen/text_size_14"/>
+
+        <TextView
+            android:id="@+id/tv_get_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
+            android:text="找回密码"
+            android:textColor="@color/common_color"
+            android:textSize="@dimen/text_size_14"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_login"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_button_round100"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="确定登录"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_16"/>
+
+</LinearLayout>

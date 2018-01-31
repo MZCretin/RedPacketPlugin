@@ -1,0 +1,170 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@color/app_bg_color">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/title_layout"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:src="@mipmap/avatar"/>
+
+            <com.cretin.www.clearedittext.view.ClearEditText
+                android:id="@+id/ed_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:drawableLeft="@mipmap/phone_icon"
+                android:drawablePadding="10dp"
+                android:hint="请输入手机号码"
+                android:inputType="phone"
+                android:paddingBottom="18dp"
+                android:paddingLeft="16dp"
+                android:paddingTop="18dp"
+                android:textColor="@color/font_black1"
+                android:textSize="@dimen/text_size_14"
+                app:clearIcon="@mipmap/edittext_clear"/>
+
+            <com.cretin.www.clearedittext.view.ClearEditText
+                android:id="@+id/ed_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:drawableLeft="@mipmap/psw_icon"
+                android:drawablePadding="10dp"
+                android:hint="新密码6-16位数字、字母或其他符号"
+                android:inputType="textPassword"
+                android:paddingBottom="18dp"
+                android:paddingLeft="16dp"
+                android:paddingTop="18dp"
+                android:textColor="@color/font_black1"
+                android:textSize="@dimen/text_size_14"
+                app:clearIcon="@mipmap/edittext_clear"/>
+
+            <com.cretin.www.clearedittext.view.ClearEditText
+                android:id="@+id/ed_password_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:drawableLeft="@mipmap/psw_icon"
+                android:drawablePadding="10dp"
+                android:hint="请再次输入新密码"
+                android:inputType="textPassword"
+                android:paddingBottom="18dp"
+                android:paddingLeft="16dp"
+                android:paddingTop="18dp"
+                android:textColor="@color/font_black1"
+                android:textSize="@dimen/text_size_14"
+                app:clearIcon="@mipmap/edittext_clear"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <com.cretin.www.clearedittext.view.ClearEditText
+                    android:id="@+id/ed_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:drawableLeft="@mipmap/phone_icon"
+                    android:drawablePadding="10dp"
+                    android:hint="请输入验证码"
+                    android:inputType="number"
+                    android:paddingBottom="18dp"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="18dp"
+                    android:textColor="@color/font_black1"
+                    android:textSize="@dimen/text_size_14"
+                    app:clearIcon="@mipmap/edittext_clear"/>
+
+                <TextView
+                    android:id="@+id/tv_get_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="获取验证码"
+                    android:textColor="@color/common_color"
+                    android:textSize="@dimen/text_size_12"/>
+
+            </LinearLayout>
+
+            <com.cretin.www.clearedittext.view.ClearEditText
+                android:id="@+id/ed_invite_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:drawableLeft="@mipmap/phone_icon"
+                android:drawablePadding="10dp"
+                android:hint="请输入邀请码(选填)"
+                android:inputType="text"
+                android:paddingBottom="18dp"
+                android:paddingLeft="16dp"
+                android:paddingTop="18dp"
+                android:textColor="@color/font_black1"
+                android:textSize="@dimen/text_size_14"
+                app:clearIcon="@mipmap/edittext_clear"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_back_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:padding="10dp"
+                    android:text="返回登录"
+                    android:textColor="@color/common_color"
+                    android:textSize="@dimen/text_size_14"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_register"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="80dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_button_round100"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="确定注册"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_16"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

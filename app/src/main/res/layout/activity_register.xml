@@ -124,7 +124,7 @@
                 android:drawableLeft="@mipmap/phone_icon"
                 android:drawablePadding="10dp"
                 android:hint="请输入邀请码(选填)"
-                android:inputType="text"
+                android:inputType="number"
                 android:paddingBottom="18dp"
                 android:paddingLeft="16dp"
                 android:paddingTop="18dp"

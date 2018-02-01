@@ -6,6 +6,16 @@ public class CusUser extends BmobUser {
     //邀请码
     private String inviteCode;
 
+    private UserInfoModel userInfoModel;
+
+    public UserInfoModel getUserInfoModel() {
+        return userInfoModel;
+    }
+
+    public void setUserInfoModel(UserInfoModel userInfoModel) {
+        this.userInfoModel = userInfoModel;
+    }
+
     public String getInviteCode() {
         return inviteCode;
     }

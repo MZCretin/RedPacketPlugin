@@ -42,15 +42,15 @@
                     android:textSize="@dimen/text_size_17"/>
 
                 <ImageView
-                    android:id="@+id/tv_siliao"
+                    android:id="@+id/iv_level"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginLeft="10dp"
-                    android:src="@mipmap/vip"/>
+                    android:src="@mipmap/vip_gray"/>
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_des"
+                android:id="@+id/tv_user_des"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="14dp"
@@ -85,6 +85,7 @@
                     android:textSize="@dimen/text_size_12"/>
 
                 <TextView
+                    android:id="@+id/tv_leijinums"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0个"
@@ -114,9 +115,10 @@
                     android:textSize="@dimen/text_size_12"/>
 
                 <TextView
+                    android:id="@+id/tv_leijimoney"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10000元"
+                    android:text="0元"
                     android:textColor="@color/colorAccent"
                     android:textSize="@dimen/text_size_32"/>
 
@@ -125,6 +127,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/tv_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -135,6 +138,7 @@
             android:textSize="@dimen/text_size_14"/>
 
         <TextView
+            android:id="@+id/tv_open"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -162,12 +166,14 @@
             android:visibility="visible">
 
             <LinearLayout
+                android:id="@+id/ll_vip"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_vip"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/item_bg_selector"
@@ -182,6 +188,7 @@
                     android:textSize="@dimen/text_size_16"/>
 
                 <TextView
+                    android:id="@+id/tv_vip_des"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -245,6 +252,7 @@
             </LinearLayout>
 
             <ToggleButton
+                android:id="@+id/tb_notification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -297,6 +305,7 @@
             </LinearLayout>
 
             <ToggleButton
+                android:id="@+id/tb_yinxiao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -314,6 +323,7 @@
         <include layout="@layout/lined8"/>
 
         <LinearLayout
+            android:id="@+id/ll_mode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/item_bg_selector"
@@ -342,6 +352,7 @@
                     android:textSize="@dimen/text_size_16"/>
 
                 <TextView
+                    android:id="@+id/tv_mode_des"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -370,6 +381,7 @@
             android:background="@color/app_bg_color"/>
 
         <LinearLayout
+            android:id="@+id/ll_shuoming"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/item_bg_selector"
@@ -472,5 +484,10 @@
                 android:textColor="@color/font_black4"
                 android:textSize="@dimen/text_size_14"/>
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/app_bg_color"/>
     </LinearLayout>
 </ScrollView>

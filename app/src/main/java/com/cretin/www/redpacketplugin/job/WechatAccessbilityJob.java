@@ -18,10 +18,16 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.cretin.www.redpacketplugin.config.Config;
+import com.cretin.www.redpacketplugin.model.RedPackageInfoModel;
 import com.cretin.www.redpacketplugin.services.PackageAccessibilityService;
 import com.cretin.www.redpacketplugin.utils.AccessibilityHelper;
+import com.cretin.www.redpacketplugin.utils.CommonUtils;
+import com.cretin.www.redpacketplugin.utils.KV;
+import com.cretin.www.redpacketplugin.utils.LocalStorageKeys;
 import com.cretin.www.redpacketplugin.utils.NotifyHelper;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class WechatAccessbilityJob extends BaseAccessbilityJob {
@@ -118,13 +124,13 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
         PendingIntent pendingIntent = notification.contentIntent;
         boolean lock = NotifyHelper.isLockScreen(getContext());
 
-        if(!lock) {
+        if ( !lock ) {
             NotifyHelper.send(pendingIntent);
         } else {
             NotifyHelper.showNotify(getContext(), String.valueOf(notification.tickerText), pendingIntent);
         }
 
-        if(lock || getConfig().getWechatMode() != Config.WX_MODE_0) {
+        if ( lock || getConfig().getWechatMode() != Config.WX_MODE_0 ) {
             NotifyHelper.playEffect(getContext(), getConfig());
         }
     }
@@ -152,12 +158,17 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
             if ( nodeInfo == null ) {
                 //如果一直为空 八成是服务断了
                 Log.w(TAG, "rootWindow为空");
-                return;
+                nodeInfo = event.getSource();
+                if ( nodeInfo == null ) {
+                    Log.w(TAG, "rootWindow为空 +1");
+                    return;
+                }
             }
             /**
              * 说明 点击红包后的操作和红包详情都交给className来判断
              */
             String className = event.getClassName().toString();
+            Log.e("HHHHHHH", "className   " + className);
             if ( "com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyReceiveUI".equals(className) ) {
                 //点中了红包 有两种操作 一种是点开红包  一种是手慢了
                 /**
@@ -182,8 +193,67 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
                         AccessibilityHelper.performClick(closeNodes.get(0));
                 }
             } else if ( "com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyDetailUI".equals(className) ) {
-                //拆完红包后看详细的纪录界面 这里直接退出就好
-                AccessibilityHelper.performBack(getService());
+                //拆完红包后看详细的纪录界面 这里提取下数据后退出就好
+                RedPackageInfoModel indo = new RedPackageInfoModel();
+                indo.setPackageTime(CommonUtils.timeLongFormatToStr(new Date(System.currentTimeMillis()).getTime()));
+                //获取金额关闭按钮
+                List<AccessibilityNodeInfo> moneyNodes =
+                        nodeInfo.findAccessibilityNodeInfosByViewId("com.tencent.mm:id/byw");
+                if ( !moneyNodes.isEmpty() ) {
+                    String money = moneyNodes.get(0).getText().toString();
+                    try {
+                        double moneyDouble = Double.parseDouble(money);
+                        indo.setMoney(moneyDouble);
+                    } catch ( Exception e ) {
+                        e.printStackTrace();
+                    }
+                }
+                //获取发红包的用户名
+                List<AccessibilityNodeInfo> userNodes =
+                        nodeInfo.findAccessibilityNodeInfosByViewId("com.tencent.mm:id/bys");
+                if ( !userNodes.isEmpty() ) {
+                    String username = userNodes.get(0).getText().toString();
+                    indo.setOrigin(username);
+                }
+                //获取多长时间被抢完的控件  有这个控件代表是群红包
+                List<AccessibilityNodeInfo> timeNodes =
+                        nodeInfo.findAccessibilityNodeInfosByViewId("com.tencent.mm:id/bzb");
+                //红包类型 0 私包 1 群红包 普通红包 2 群红包 拼手气
+                if ( !timeNodes.isEmpty() ) {
+                    //群红包
+                    //获取拼手气的图标 有 代表是平手气
+                    List<AccessibilityNodeInfo> pinNodes =
+                            nodeInfo.findAccessibilityNodeInfosByViewId("com.tencent.mm:id/byt");
+                    if ( pinNodes.isEmpty() ) {
+                        //普通
+                        indo.setType(1);
+                    } else {
+                        //拼手气
+                        indo.setType(2);
+                    }
+                } else {
+                    //个人红包
+                    indo.setType(0);
+                }
+
+                //保存数据到hawk
+                List<RedPackageInfoModel> list = KV.get(LocalStorageKeys.RED_PACKAGE_LIST);
+                if ( list == null ) {
+                    list = new ArrayList<>();
+                }
+                list.add(indo);
+                KV.put(LocalStorageKeys.RED_PACKAGE_LIST, list);
+
+                //获取关闭按钮
+                List<AccessibilityNodeInfo> closeNodes =
+                        nodeInfo.findAccessibilityNodeInfosByViewId("com.tencent.mm:id/hp");
+                if ( !closeNodes.isEmpty() ) {
+                    //关掉
+                    AccessibilityHelper.performClick(closeNodes.get(0));
+                    return;
+                } else {
+                    AccessibilityHelper.performBack(getService());
+                }
             } else {
                 /**
                  * 有一种情况 就是点开了红包准备抢的时候  红包被人抢了 现在会由开红包 去到 手慢了  但是不会触发

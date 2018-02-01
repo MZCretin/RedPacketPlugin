@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-
 android {
     dexOptions {
         incremental true
@@ -14,7 +13,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
         multiDexEnabled true
     }
     buildTypes {
@@ -47,4 +46,8 @@ dependencies {
     compile 'com.github.MZCretin:ClearEditTextProject:1.3.0'
     //bmob-push：Bmob的推送包
     compile 'cn.bmob.android:bmob-push:1.0.1'
+    compile 'com.jakewharton:butterknife:8.5.1'
+    compile 'com.jakewharton:butterknife-compiler:8.5.1'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
+    compile 'com.android.support:design:26.1.0'
 }

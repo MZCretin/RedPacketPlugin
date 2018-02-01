@@ -1,6 +1,7 @@
 package com.cretin.www.redpacketplugin.base;
 
 import android.app.Application;
+import android.os.Handler;
 
 import com.orhanobut.hawk.Hawk;
 import com.orhanobut.hawk.NoEncryption;
@@ -13,9 +14,13 @@ import cn.bmob.v3.BmobConfig;
  */
 
 public class BaseApplication extends Application {
+    private static Handler handler;
+
     @Override
     public void onCreate() {
         super.onCreate();
+
+        handler = new Handler();
 
         //初始化Hawk
         initHawk();
@@ -36,5 +41,9 @@ public class BaseApplication extends Application {
     //手动配置Hawk
     private void initHawk() {
         Hawk.init(this).setEncryption(new NoEncryption()).build();
+    }
+
+    public static Handler getHandler() {
+        return handler;
     }
 }

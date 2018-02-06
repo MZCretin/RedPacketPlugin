@@ -23,6 +23,16 @@ public class PayDetailModel extends BmobObject {
     private String stateValue;
     //提示
     private String message;
+    //所属用户id
+    private String authirUserId;
+
+    public String getAuthirUserId() {
+        return authirUserId;
+    }
+
+    public void setAuthirUserId(String authirUserId) {
+        this.authirUserId = authirUserId;
+    }
 
     public String getPayCode() {
         return payCode;

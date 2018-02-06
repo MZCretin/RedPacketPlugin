@@ -102,7 +102,6 @@ public class LoginActivity extends BaseActivity {
                           stopDialog();
                           if ( e == null ) {
                               showToast("登录成功");
-                              KV.put(LocalStorageKeys.USER_INFO, bmobUser);
                               //保存账户和密码
                               String info = phone + "#" + password;
                               KV.put(LocalStorageKeys.USER_LOGIN_INFO, info);

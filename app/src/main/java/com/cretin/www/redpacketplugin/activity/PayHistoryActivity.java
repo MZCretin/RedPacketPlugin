@@ -14,9 +14,12 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.cretin.www.redpacketplugin.R;
+import com.cretin.www.redpacketplugin.model.CusUser;
 import com.cretin.www.redpacketplugin.model.PayDetailModel;
 import com.cretin.www.redpacketplugin.utils.AlertDialog;
 import com.cretin.www.redpacketplugin.utils.ItemButtomDecoration;
+import com.cretin.www.redpacketplugin.utils.KV;
+import com.cretin.www.redpacketplugin.utils.LocalStorageKeys;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +53,7 @@ public class PayHistoryActivity extends BaseActivity {
     private ListAdapter adapter;
     private int currPage = 0;
     private ClipboardManager cmb;
+    private CusUser cusUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,7 @@ public class PayHistoryActivity extends BaseActivity {
         setContentView(R.layout.activity_pay_history);
         ButterKnife.bind(this);
 
+        cusUser = KV.get(LocalStorageKeys.USER_INFO);
         tvTitleInfo.setText("历史续费记录");
 
         initData();
@@ -138,6 +143,7 @@ public class PayHistoryActivity extends BaseActivity {
         currPage = page + 1;
         BmobQuery<PayDetailModel> query = new BmobQuery<PayDetailModel>();
         query.include("payTypeModel");
+        query.addWhereEqualTo("authirUserId", cusUser.getObjectId());
         query.setLimit(10);
         query.setSkip(page);
         query.order("-createdAt");

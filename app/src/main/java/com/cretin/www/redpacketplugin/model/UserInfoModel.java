@@ -8,7 +8,7 @@ import cn.bmob.v3.BmobObject;
  * Created by cretin on 2018/1/31.
  */
 
-public class UserInfoModel extends BmobObject {
+public class UserInfoModel extends BmobObject{
     //剩余天数
     private int leftDays;
     //邀请的用户

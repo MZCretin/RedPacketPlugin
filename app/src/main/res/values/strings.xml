@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RedPacketPlugin</string>
+    <string name="app_name">电点红包助手</string>
 
     <string name="accessibility_service_description">请点击右上角的开启/关闭按钮\n\n开启此服务才能开启自动抢红包的功能，逢年过节红包逃不了\n\n提示：\n
 打开系统服务的时候，系统会弹出例行的隐私公告。电点红包插件承诺不会通过此服务收集任何用户隐私，请放心使用\n\n此服务在Android4.1以下系统不生效</string>

@@ -10,8 +10,14 @@ import android.widget.Toast;
 import com.cretin.www.redpacketplugin.config.Config;
 import com.cretin.www.redpacketplugin.config.eventbus.EventBusMsg;
 import com.cretin.www.redpacketplugin.config.eventbus.NotifyOnActivityStop;
+import com.cretin.www.redpacketplugin.config.eventbus.NotifyVipHasDied;
 import com.cretin.www.redpacketplugin.job.AccessbilityJob;
 import com.cretin.www.redpacketplugin.job.WechatAccessbilityJob;
+import com.cretin.www.redpacketplugin.model.CusUser;
+import com.cretin.www.redpacketplugin.model.UserInfoModel;
+import com.cretin.www.redpacketplugin.utils.CommonUtils;
+import com.cretin.www.redpacketplugin.utils.KV;
+import com.cretin.www.redpacketplugin.utils.LocalStorageKeys;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -38,7 +44,7 @@ public class PackageAccessibilityService extends AccessibilityService {
 
     @Override
     public void onCreate() {
-        Log.e(TAG,"onCreate");
+        Log.e(TAG, "onCreate");
         super.onCreate();
         EventBus.getDefault().register(this);
         WechatAccessbilityJob wechatJob = new WechatAccessbilityJob();
@@ -51,7 +57,7 @@ public class PackageAccessibilityService extends AccessibilityService {
      */
     @Override
     protected void onServiceConnected() {
-        Log.e(TAG,"onServiceConnected");
+        Log.e(TAG, "onServiceConnected");
         super.onServiceConnected();
         service = this;
         EventBusMsg msg = new EventBusMsg();
@@ -67,12 +73,32 @@ public class PackageAccessibilityService extends AccessibilityService {
     @TargetApi( Build.VERSION_CODES.JELLY_BEAN_MR2 )
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
-        Log.e(TAG,"onAccessibilityEvent");
+        Log.e(TAG, "onAccessibilityEvent");
         String pkn = String.valueOf(event.getPackageName());
-        for (AccessbilityJob job : mJobs) {
-            if(pkn.equals(job.getTargetPackageName()) && job.isEnable()) {
-                job.onReceiveJob(event);
-                break;
+        CusUser cusUser = KV.get(LocalStorageKeys.USER_INFO);
+        if ( cusUser != null ) {
+            UserInfoModel userInfoModel = cusUser.getUserInfoModel();
+            if ( userInfoModel != null ) {
+                int leftDay = userInfoModel.getLeftDays();
+                String createdAt = cusUser.getCreatedAt();
+                //            2018-02-01 14:38:45
+                //计算截止时间
+                String endlineTimeStr = CommonUtils.plusDay(leftDay, createdAt);
+
+                if ( CommonUtils.isBeforeToday(endlineTimeStr) ) {
+                    //已过期
+                    EventBus.getDefault().post(new NotifyVipHasDied());
+                    return;
+                } else {
+                    //未过期 放行
+                }
+                //将事件放行至下一个环节
+                for ( AccessbilityJob job : mJobs ) {
+                    if ( pkn.equals(job.getTargetPackageName()) && job.isEnable() ) {
+                        job.onReceiveJob(event, cusUser);
+                        break;
+                    }
+                }
             }
         }
     }
@@ -93,7 +119,7 @@ public class PackageAccessibilityService extends AccessibilityService {
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        Log.e(TAG,"onDestory");
+        Log.e(TAG, "onDestory");
         service = null;
         EventBusMsg msg = new EventBusMsg();
         msg.setType(EventBusMsg.ACCESSIBILITY_DISCONNECTED);
@@ -109,10 +135,9 @@ public class PackageAccessibilityService extends AccessibilityService {
 
     @TargetApi( Build.VERSION_CODES.N )
     @Subscribe
-    public void onActivityStop(NotifyOnActivityStop event){
+    public void onActivityStop(NotifyOnActivityStop event) {
         service.disableSelf();
     }
-
 
 
 //    @TargetApi( Build.VERSION_CODES.JELLY_BEAN )

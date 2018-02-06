@@ -15,8 +15,6 @@ import com.cretin.www.redpacketplugin.utils.CommonUtils;
 import com.cretin.www.redpacketplugin.utils.KV;
 import com.cretin.www.redpacketplugin.utils.LocalStorageKeys;
 
-import java.util.Date;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -93,9 +91,7 @@ public class VipInfoActivity extends BaseActivity {
             String createdAt = user.getCreatedAt();
 //            2018-02-01 14:38:45
             //计算截止时间
-            long endlineTime = CommonUtils.timeStrFormatToLong(createdAt) + leftDay * 24 * 60 * 60 * 1000;
-            //获取截止时间字符串
-            String endlineTimeStr = CommonUtils.timeLongFormatToStr(endlineTime);
+            String endlineTimeStr = CommonUtils.plusDay(leftDay, createdAt);
             //0 普通用户 1 周卡  2 月卡  3 终生免费
             if ( userInfoModel.getVipLevel() == 0 ) {
                 //普通用户
@@ -115,15 +111,14 @@ public class VipInfoActivity extends BaseActivity {
                 ivLevel.setImageResource(R.mipmap.vip_supper);
             }
 
-            long nowTime = new Date(System.currentTimeMillis()).getTime();
-            if ( nowTime > endlineTime ) {
+            if ( CommonUtils.isBeforeToday(endlineTimeStr) ) {
                 //已过期
                 tvMainDes.setTextColor(getResources().getColor(R.color.red_ef0000));
                 tvMainDes.setText("尊敬的会员，您的会员已于" + endlineTimeStr + "过期，如需继续尊享自动抢红包的服务，请立即续费会员");
             } else {
                 //未过期 计算时间
                 //计算还剩多少天
-                long tempTime = endlineTime - nowTime;
+                long tempTime = CommonUtils.getDifference(endlineTimeStr);
                 double d = tempTime / 3600 / 1000;
                 int day = ( int ) (d / 24);
                 int hour = ( int ) (d % 24);

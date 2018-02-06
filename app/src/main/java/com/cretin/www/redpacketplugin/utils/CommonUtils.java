@@ -9,6 +9,7 @@ import com.cretin.www.redpacketplugin.services.PackageAccessibilityService;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -23,6 +24,90 @@ public class CommonUtils {
      */
     public static String getInviteCode() {
         return Math.abs((System.currentTimeMillis() + "").hashCode()) + "";
+    }
+
+    /**
+     * 指定日期加上天数后的日期
+     *
+     * @param num     为增加的天数
+     * @param newDate 创建时间
+     * @return
+     * @throws ParseException
+     */
+    public static String plusDay(int num, String newDate) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date currdate = null;
+        try {
+            currdate = format.parse(newDate);
+        } catch ( ParseException e ) {
+            e.printStackTrace();
+        }
+        Calendar ca = Calendar.getInstance();
+        ca.setTime(currdate);
+        ca.add(Calendar.DATE, num);// num为增加的天数，可以改变的
+        currdate = ca.getTime();
+        return format.format(currdate);
+    }
+
+
+    /**
+     * first 是否在 second 之前
+     *
+     * @param first
+     * @param second
+     * @return
+     * @throws ParseException
+     */
+    public static boolean isBefore(String first, String second) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date c1 = null;
+        Date c2 = null;
+        try {
+            c1 = format.parse(first);
+            c2 = format.parse(second);
+        } catch ( ParseException e ) {
+            e.printStackTrace();
+            return false;
+        }
+        return c1.before(c2);
+    }
+
+    /**
+     * 获取目标时间和现在的时间差值
+     *
+     * @param aimDate
+     * @return
+     */
+    public static long getDifference(String aimDate) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date c1 = null;
+        Date c2 = new Date(System.currentTimeMillis());
+        try {
+            c1 = format.parse(aimDate);
+        } catch ( ParseException e ) {
+            e.printStackTrace();
+            return 0;
+        }
+        return c1.getTime() - c2.getTime();
+    }
+
+    /**
+     * first 是否在今天之前
+     *
+     * @param first
+     * @return
+     */
+    public static boolean isBeforeToday(String first) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date c1 = new Date(System.currentTimeMillis());
+        Date c2 = null;
+        try {
+            c2 = format.parse(first);
+        } catch ( ParseException e ) {
+            e.printStackTrace();
+            return false;
+        }
+        return c2.before(c1);
     }
 
     /**

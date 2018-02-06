@@ -429,7 +429,7 @@
                         android:paddingBottom="16dp"
                         android:paddingLeft="16dp"
                         android:paddingRight="10dp"
-                        android:text="快速使用Cretin插件抢到海量红包"
+                        android:text="快速使用电点红包助手抢到海量红包"
                         android:textColor="@color/font_black4"
                         android:textSize="@dimen/text_size_12"/>
                 </LinearLayout>
@@ -448,6 +448,7 @@
             <include layout="@layout/lined8"/>
 
             <LinearLayout
+                android:id="@+id/ll_log"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/item_bg_selector"
@@ -482,7 +483,7 @@
                         android:paddingBottom="16dp"
                         android:paddingLeft="16dp"
                         android:paddingRight="10dp"
-                        android:text="用户当天成功抢到的红包的列表数据"
+                        android:text="用户使用电点红包助手所抢到的红包记录"
                         android:textColor="@color/font_black4"
                         android:textSize="@dimen/text_size_12"/>
                 </LinearLayout>

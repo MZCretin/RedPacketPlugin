@@ -15,9 +15,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cretin.www.redpacketplugin.R;
+import com.cretin.www.redpacketplugin.model.CusUser;
 import com.cretin.www.redpacketplugin.model.PayDetailModel;
 import com.cretin.www.redpacketplugin.model.PayTypeModel;
 import com.cretin.www.redpacketplugin.utils.FileUtil;
+import com.cretin.www.redpacketplugin.utils.KV;
+import com.cretin.www.redpacketplugin.utils.LocalStorageKeys;
 import com.cretin.www.redpacketplugin.utils.PermissionsChecker;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -65,11 +68,14 @@ public class PayActivity extends BaseActivity {
     };
     private int payIndex = 0;
     private PayTypeModel mPayTypeModel;
+    private CusUser cusUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay);
+
+        cusUser = KV.get(LocalStorageKeys.USER_INFO);
 
         mPermissionsChecker = new PermissionsChecker(this);
         ButterKnife.bind(this);
@@ -204,6 +210,7 @@ public class PayActivity extends BaseActivity {
         payDetailModel.setMoney(money);
         payDetailModel.setPayCode(payCode);
         payDetailModel.setState(1);
+        payDetailModel.setAuthirUserId(cusUser.getObjectId());
         payDetailModel.setStateValue("审核中");
         payDetailModel.setPayTypeDes(mPayTypeModel.getPayTypeValue());
         payDetailModel.save(new SaveListener<String>() {

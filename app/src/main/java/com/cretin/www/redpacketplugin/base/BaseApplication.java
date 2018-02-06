@@ -4,7 +4,6 @@ import android.app.Application;
 import android.os.Handler;
 
 import com.orhanobut.hawk.Hawk;
-import com.orhanobut.hawk.NoEncryption;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobConfig;
@@ -22,9 +21,6 @@ public class BaseApplication extends Application {
 
         handler = new Handler();
 
-        //初始化Hawk
-        initHawk();
-
         BmobConfig config = new BmobConfig.Builder(this)
                 //设置appkey
                 .setApplicationId("fdfdfed16ace6e7de64cb91955b9f10b")
@@ -36,11 +32,20 @@ public class BaseApplication extends Application {
                 .setFileExpiration(2500)
                 .build();
         Bmob.initialize(config);
+
+        //初始化Hawk
+        initHawk();
     }
 
     //手动配置Hawk
     private void initHawk() {
-        Hawk.init(this).setEncryption(new NoEncryption()).build();
+//        Hawk.init(this)
+//                .setEncryptionMethod(HawkBuilder.EncryptionMethod.MEDIUM)
+//                .setStorage(HawkBuilder.newSqliteStorage(this))
+//                .setLogLevel(LogLevel.FULL)
+//                .build();
+
+        Hawk.init(this).build();
     }
 
     public static Handler getHandler() {

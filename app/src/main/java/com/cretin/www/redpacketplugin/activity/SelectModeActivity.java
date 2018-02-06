@@ -156,7 +156,10 @@ public class SelectModeActivity extends BaseActivity {
                                         adapter.notifyDataSetChanged();
                                         CusUser cusUser = KV.get(LocalStorageKeys.USER_INFO);
                                         if ( cusUser != null ) {
-                                            cusUser.setUserInfoModel(object);
+                                            UserInfoModel userInfoModel1 = cusUser.getUserInfoModel();
+                                            userInfoModel1.setModeState(modeListModel.getTypeValue());
+                                            userInfoModel1.setModeStateValue(modeListModel.getTitle());
+                                            cusUser.setUserInfoModel(userInfoModel1);
                                             KV.put(LocalStorageKeys.USER_INFO, cusUser);
                                         }
                                     } else {

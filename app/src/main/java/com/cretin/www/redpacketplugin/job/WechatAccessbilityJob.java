@@ -20,15 +20,21 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.Toast;
 
+import com.cretin.www.redpacketplugin.config.eventbus.NotifyDataNotPrepare;
+import com.cretin.www.redpacketplugin.config.eventbus.NotifyDataNotPreparedSuccess;
 import com.cretin.www.redpacketplugin.model.CusUser;
 import com.cretin.www.redpacketplugin.model.RedPackageInfoModel;
 import com.cretin.www.redpacketplugin.model.UserInfoModel;
+import com.cretin.www.redpacketplugin.model.WeixinNodeModel;
 import com.cretin.www.redpacketplugin.services.PackageAccessibilityService;
 import com.cretin.www.redpacketplugin.utils.AccessibilityHelper;
 import com.cretin.www.redpacketplugin.utils.CommonUtils;
 import com.cretin.www.redpacketplugin.utils.KV;
 import com.cretin.www.redpacketplugin.utils.LocalStorageKeys;
 import com.cretin.www.redpacketplugin.utils.NotifyHelper;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,15 +44,37 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
 
     private static final String TAG = "WechatAccessbilityJob";
 
+    private String CLASS_NAME_RECEIVE_UI = "com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyReceiveUI";
+    private String CLASS_NAME_DETAIL_UI = "com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyDetailUI";
+    private String VIEW_ID_RECEIVE_BTN_OPEN = "com.tencent.mm:id/c2i";
+    private String VIEW_ID_RECEIVE_TV_SHOWMANLE = "com.tencent.mm:id/c2h";
+    private String VIEW_ID_RECEIVE_CLOSE = "com.tencent.mm:id/c07";
+    private String VIEW_ID_DETAIL_MONEY = "com.tencent.mm:id/byw";
+    private String VIEW_ID_DETAIL_USERNAME = "com.tencent.mm:id/bys";
+    private String VIEW_ID_DETAIL_TIME_TO_QIANG = "com.tencent.mm:id/bzb";
+    private String VIEW_ID_DETAIL_PINSHOUQI = "com.tencent.mm:id/byt";
+    private String VIEW_ID_DETAIL_CLOSE = "com.tencent.mm:id/hp";
+    private String VIEW_ID_CHATTING_TV_ADD = "com.tencent.mm:id/aak";
+    private String VIEW_ID_HOME_LV_ITEM = "com.tencent.mm:id/apr";
+    private String VIEW_ID_HOME_LV_ITEM_CONTENT = "com.tencent.mm:id/apv";
+    private String VIEW_ID_HOME_LV_ITEM_NUMBER = "com.tencent.mm:id/iu";
+    private String VIEW_ID_CHATTING_TV_TITLE = "com.tencent.mm:id/ha";
+    private String VIEW_ID_HOME_LV_ITEM_LABEL_WXHB = "com.tencent.mm:id/aec";
+    private String VIEW_ID_CHATTING_TV_BACK = "com.tencent.mm:id/h_";
+    private String FLAG = "UN_PREPARE";
+
     /**
      * 微信的包名
      */
-    public static final String WECHAT_PACKAGENAME = "com.tencent.mm";
+    private String WECHAT_PACKAGENAME = "com.tencent.mm";
 
     /**
      * 红包消息的关键字
      */
-    private static final String HONGBAO_TEXT_KEY = "[微信红包]";
+    private String HONGBAO_TEXT_KEY = "[微信红包]";
+    private String TEXT_SHOUMANLE = "手慢了，红包派完了";
+    private String TEXT_LINGQUHONGBAO = "领取红包";
+    private String TEXT_LV_ITEM_TIPS = "微信红包";
 
     private PackageInfo mWechatPackageInfo = null;
     private Handler mHandler = null;
@@ -62,7 +90,7 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
     @Override
     public void onCreateJob(PackageAccessibilityService service) {
         super.onCreateJob(service);
-
+        EventBus.getDefault().register(this);
         updatePackageInfo();
 
         IntentFilter filter = new IntentFilter();
@@ -76,10 +104,20 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
 
     @Override
     public void onStopJob() {
+        EventBus.getDefault().unregister(this);
         try {
             getContext().unregisterReceiver(broadcastReceiver);
         } catch ( Exception e ) {
         }
+    }
+
+    @Subscribe
+    public void notifyDataNotPreparedSuccess(NotifyDataNotPreparedSuccess event) {
+        if ( !"PREPARE".equals(FLAG) ) {
+            //未准备就绪
+            setMainInfo();
+        }
+        Log.e("HHHHHHHHHHH","6666666666666");
     }
 
     @TargetApi( Build.VERSION_CODES.JELLY_BEAN_MR2 )
@@ -100,8 +138,54 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
     }
 
     @Override
-    public void onReceiveJob(AccessibilityEvent event) {
-        handleHongBao(event);
+    public void onReceiveJob(AccessibilityEvent event, CusUser cusUser) {
+        if ( !"PREPARE".equals(FLAG) ) {
+            //未准备就绪
+            setMainInfo();
+            handleHongBao(event, cusUser);
+        } else {
+            //数据未加载
+            EventBus.getDefault().post(new NotifyDataNotPrepare());
+        }
+    }
+
+    //设置参数
+    private void setMainInfo() {
+        WeixinNodeModel weixinNodeModel =
+                KV.get(LocalStorageKeys.WEIXINNODEMODEL_SINGLE);
+        if ( weixinNodeModel != null ) {
+            CLASS_NAME_RECEIVE_UI = weixinNodeModel.getCL_NAME_RV_UI();
+            CLASS_NAME_DETAIL_UI = weixinNodeModel.getCL_NAME_EL_UI();
+            VIEW_ID_RECEIVE_BTN_OPEN = weixinNodeModel.getID_RV_BTN_OPEN();
+            VIEW_ID_RECEIVE_TV_SHOWMANLE = weixinNodeModel.getID_RV_TV_SHOWMANLE();
+            VIEW_ID_RECEIVE_CLOSE = weixinNodeModel.getID_RV_CLOSE();
+            VIEW_ID_DETAIL_MONEY = weixinNodeModel.getID_EL_MONEY();
+            VIEW_ID_DETAIL_USERNAME = weixinNodeModel.getID_EL_USERNAME();
+            VIEW_ID_DETAIL_TIME_TO_QIANG = weixinNodeModel.getID_EL_TIME_TO_QIANG();
+            VIEW_ID_DETAIL_PINSHOUQI = weixinNodeModel.getID_EL_PINSHOUQI();
+            VIEW_ID_DETAIL_CLOSE = weixinNodeModel.getID_EL_CLOSE();
+            VIEW_ID_CHATTING_TV_ADD = weixinNodeModel.getID_CHATTING_TV_ADD();
+            VIEW_ID_HOME_LV_ITEM = weixinNodeModel.getID_HO_LV_IM();
+            VIEW_ID_HOME_LV_ITEM_CONTENT = weixinNodeModel.getID_HO_LV_IM_CONTENT();
+            VIEW_ID_HOME_LV_ITEM_NUMBER = weixinNodeModel.getID_HO_LV_IM_NUMBER();
+            VIEW_ID_CHATTING_TV_TITLE = weixinNodeModel.getID_CHATTING_TV_TITLE();
+            VIEW_ID_HOME_LV_ITEM_LABEL_WXHB = weixinNodeModel.getID_HO_LV_IM_LB_WXHB();
+            VIEW_ID_CHATTING_TV_BACK = weixinNodeModel.getID_CHATTING_TV_BACK();
+            String commonInfo = weixinNodeModel.getCOMMEN_TEXT_INFO();
+            String split = weixinNodeModel.getSTR_SPLIT();
+            String[] splits = commonInfo.split(split);
+//            com.tencent.mm [微信红包] 手慢了，红包派完了 领取红包 微信红包
+            if ( splits != null && splits.length == 5 ) {
+                WECHAT_PACKAGENAME = splits[0];
+                HONGBAO_TEXT_KEY = splits[1];
+                TEXT_SHOUMANLE = splits[2];
+                TEXT_LINGQUHONGBAO = splits[3];
+                TEXT_LV_ITEM_TIPS = splits[4];
+            }
+            FLAG = "PREPARE";
+        } else {
+            FLAG = "UN_PREPARE";
+        }
     }
 
     /**
@@ -160,9 +244,8 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
      * @param event
      */
     @TargetApi( Build.VERSION_CODES.JELLY_BEAN_MR2 )
-    private void handleHongBao(AccessibilityEvent event) {
+    private void handleHongBao(AccessibilityEvent event, CusUser cusUser) {
         if ( event.getEventType() == AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED ) {
-            CusUser cusUser = KV.get(LocalStorageKeys.USER_INFO);
             if ( cusUser != null ) {
                 UserInfoModel userInfoModel = cusUser.getUserInfoModel();
                 if ( userInfoModel != null ) {
@@ -189,13 +272,13 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
              */
             String className = event.getClassName().toString();
             Log.e("HHHHHHH", "className   " + className);
-            if ( "com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyReceiveUI".equals(className) ) {
+
+            if ( CLASS_NAME_RECEIVE_UI.equals(className) ) {
                 //如果是手动 就不帮忙关掉
-                CusUser cusUser = KV.get(LocalStorageKeys.USER_INFO);
                 if ( cusUser != null ) {
                     UserInfoModel userInfoModel = cusUser.getUserInfoModel();
                     if ( userInfoModel != null ) {
-                        if(userInfoModel.getModeState() == 4){
+                        if ( userInfoModel.getModeState() == 4 ) {
                             //不自动
                             return;
                         }
@@ -208,14 +291,17 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
                  * 一种是点开红包
                  */
                 //获取开按钮
+
                 List<AccessibilityNodeInfo> kaiNodes =
-                        nodeInfo.findAccessibilityNodeInfosByViewId("com.tencent.mm:id/c2i");
+                        nodeInfo.findAccessibilityNodeInfosByViewId(VIEW_ID_RECEIVE_BTN_OPEN);
                 //获取 手慢了 提示语句的控件
+
                 List<AccessibilityNodeInfo> slowNodes =
-                        nodeInfo.findAccessibilityNodeInfosByViewId("com.tencent.mm:id/c2h");
+                        nodeInfo.findAccessibilityNodeInfosByViewId(VIEW_ID_RECEIVE_TV_SHOWMANLE);
                 //获取关闭按钮
+
                 List<AccessibilityNodeInfo> closeNodes =
-                        nodeInfo.findAccessibilityNodeInfosByViewId("com.tencent.mm:id/c07");
+                        nodeInfo.findAccessibilityNodeInfosByViewId(VIEW_ID_RECEIVE_CLOSE);
                 if ( !kaiNodes.isEmpty() ) {
                     //获取到开按钮 点击此按钮
                     NotifyHelper.playEffect(getContext(), getConfig());
@@ -225,13 +311,14 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
                         //手慢了 提示语句的控件 关闭对话框
                         AccessibilityHelper.performClick(closeNodes.get(0));
                 }
-            } else if ( "com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyDetailUI".equals(className) ) {
+            } else if ( CLASS_NAME_DETAIL_UI.equals(className) ) {
                 //拆完红包后看详细的纪录界面 这里提取下数据后退出就好
                 RedPackageInfoModel indo = new RedPackageInfoModel();
                 indo.setPackageTime(CommonUtils.timeLongFormatToStr(new Date(System.currentTimeMillis()).getTime()));
                 //获取金额关闭按钮
+
                 List<AccessibilityNodeInfo> moneyNodes =
-                        nodeInfo.findAccessibilityNodeInfosByViewId("com.tencent.mm:id/byw");
+                        nodeInfo.findAccessibilityNodeInfosByViewId(VIEW_ID_DETAIL_MONEY);
                 if ( !moneyNodes.isEmpty() ) {
                     String money = moneyNodes.get(0).getText().toString();
                     try {
@@ -242,21 +329,24 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
                     }
                 }
                 //获取发红包的用户名
+
                 List<AccessibilityNodeInfo> userNodes =
-                        nodeInfo.findAccessibilityNodeInfosByViewId("com.tencent.mm:id/bys");
+                        nodeInfo.findAccessibilityNodeInfosByViewId(VIEW_ID_DETAIL_USERNAME);
                 if ( !userNodes.isEmpty() ) {
                     String username = userNodes.get(0).getText().toString();
                     indo.setOrigin(username);
                 }
                 //获取多长时间被抢完的控件  有这个控件代表是群红包
+
                 List<AccessibilityNodeInfo> timeNodes =
-                        nodeInfo.findAccessibilityNodeInfosByViewId("com.tencent.mm:id/bzb");
+                        nodeInfo.findAccessibilityNodeInfosByViewId(VIEW_ID_DETAIL_TIME_TO_QIANG);
                 //红包类型 0 私包 1 群红包 普通红包 2 群红包 拼手气
                 if ( !timeNodes.isEmpty() ) {
                     //群红包
                     //获取拼手气的图标 有 代表是平手气
+
                     List<AccessibilityNodeInfo> pinNodes =
-                            nodeInfo.findAccessibilityNodeInfosByViewId("com.tencent.mm:id/byt");
+                            nodeInfo.findAccessibilityNodeInfosByViewId(VIEW_ID_DETAIL_PINSHOUQI);
                     if ( pinNodes.isEmpty() ) {
                         //普通
                         indo.setType(1);
@@ -278,11 +368,10 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
                 KV.put(LocalStorageKeys.RED_PACKAGE_LIST, list);
 
                 //如果是手动 就不帮忙关掉
-                CusUser cusUser = KV.get(LocalStorageKeys.USER_INFO);
                 if ( cusUser != null ) {
                     UserInfoModel userInfoModel = cusUser.getUserInfoModel();
                     if ( userInfoModel != null ) {
-                        if(userInfoModel.getModeState() == 4){
+                        if ( userInfoModel.getModeState() == 4 ) {
                             //不自动
                             return;
                         }
@@ -291,8 +380,9 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
                     Toast.makeText(getService(), "获取配置信息错误,使用默认配置", Toast.LENGTH_SHORT).show();
                 }
                 //获取关闭按钮
+
                 List<AccessibilityNodeInfo> closeNodes =
-                        nodeInfo.findAccessibilityNodeInfosByViewId("com.tencent.mm:id/hp");
+                        nodeInfo.findAccessibilityNodeInfosByViewId(VIEW_ID_DETAIL_CLOSE);
                 if ( !closeNodes.isEmpty() ) {
                     //关掉
                     AccessibilityHelper.performClick(closeNodes.get(0));
@@ -306,12 +396,14 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
                  * com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyReceiveUI 所以要做额外处理
                  */
                 //获取关闭按钮
+
                 List<AccessibilityNodeInfo> closeNodes =
-                        nodeInfo.findAccessibilityNodeInfosByViewId("com.tencent.mm:id/c07");
+                        nodeInfo.findAccessibilityNodeInfosByViewId(VIEW_ID_RECEIVE_CLOSE);
                 //获取 手慢了 提示语句的控件
+
                 List<AccessibilityNodeInfo> slowNodes =
-                        nodeInfo.findAccessibilityNodeInfosByViewId("com.tencent.mm:id/c2h");
-                if ( !slowNodes.isEmpty() && "手慢了，红包派完了".equals(slowNodes.get(0).getText().toString()) ) {
+                        nodeInfo.findAccessibilityNodeInfosByViewId(VIEW_ID_RECEIVE_TV_SHOWMANLE);
+                if ( !slowNodes.isEmpty() && TEXT_SHOUMANLE.equals(slowNodes.get(0).getText().toString()) ) {
                     if ( !closeNodes.isEmpty() ) {
                         //关掉
                         AccessibilityHelper.performClick(closeNodes.get(0));
@@ -321,29 +413,33 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
 
                 //处理其他情况
                 //获取聊天页面的按钮 如果有则代表是聊天页面
+
                 List<AccessibilityNodeInfo> chatNodes =
-                        nodeInfo.findAccessibilityNodeInfosByViewId("com.tencent.mm:id/aak");
+                        nodeInfo.findAccessibilityNodeInfosByViewId(VIEW_ID_CHATTING_TV_ADD);
                 if ( chatNodes.isEmpty() ) {
                     Log.e("MMMMMM", "不在聊天页面 不好说在哪儿");
                     //不在聊天页面 不好说在哪儿
                     //获取首页的listview 的 item 的 列表
+
                     List<AccessibilityNodeInfo> listItemNodes =
-                            nodeInfo.findAccessibilityNodeInfosByViewId("com.tencent.mm:id/apr");
+                            nodeInfo.findAccessibilityNodeInfosByViewId(VIEW_ID_HOME_LV_ITEM);
                     if ( listItemNodes.isEmpty() ) {
                         //反正不是在首页 不理会
                         return;
                     } else {
                         //在首页
-                        List<AccessibilityNodeInfo> nodes = nodeInfo.findAccessibilityNodeInfosByViewId("com.tencent.mm:id/apv");
+
+                        List<AccessibilityNodeInfo> nodes = nodeInfo.findAccessibilityNodeInfosByViewId(VIEW_ID_HOME_LV_ITEM_CONTENT);
                         if ( nodes != null ) {
                             for ( AccessibilityNodeInfo node :
                                     nodes ) {
-                                if ( node.getText().toString().contains("[微信红包]") ) {
+                                if ( node.getText().toString().contains(HONGBAO_TEXT_KEY) ) {
                                     //还要判断是否有未读消息
                                     AccessibilityNodeInfo parent = node.getParent();
                                     if ( parent != null ) {
+
                                         List<AccessibilityNodeInfo> numsNodes =
-                                                parent.findAccessibilityNodeInfosByViewId("com.tencent.mm:id/iu");
+                                                parent.findAccessibilityNodeInfosByViewId(VIEW_ID_HOME_LV_ITEM_NUMBER);
                                         if ( !numsNodes.isEmpty() ) {
                                             CharSequence text = numsNodes.get(0).getText();
                                             if ( text != null ) {
@@ -362,12 +458,11 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
                 } else {
                     Log.e("MMMMMM", "在聊天页面");
                     //在聊天页面
-                    List<AccessibilityNodeInfo> list = nodeInfo.findAccessibilityNodeInfosByText("领取红包");
+                    List<AccessibilityNodeInfo> list = nodeInfo.findAccessibilityNodeInfosByText(TEXT_LINGQUHONGBAO);
                     if ( list == null )
                         return;
                     // 模式选择 0 未选择 1 自动抢 单聊 2 自动抢 群聊 3 自动抢 all 4 仅打开红包页面
                     int modeState = 4;
-                    CusUser cusUser = KV.get(LocalStorageKeys.USER_INFO);
                     if ( cusUser != null ) {
                         UserInfoModel userInfoModel = cusUser.getUserInfoModel();
                         if ( userInfoModel != null ) {
@@ -381,8 +476,9 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
                     int chatType = 2;
                     //判断是私聊还是群聊天
                     //获取标题的视图
+
                     List<AccessibilityNodeInfo> titleNodes =
-                            nodeInfo.findAccessibilityNodeInfosByViewId("com.tencent.mm:id/ha");
+                            nodeInfo.findAccessibilityNodeInfosByViewId(VIEW_ID_CHATTING_TV_TITLE);
                     if ( titleNodes.isEmpty() ) {
                         //判断不了
                         chatType = 2;
@@ -411,8 +507,9 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
                         //没有 直接返回
                         if ( modeState != 4 ) {
                             //找到聊天页面的返回按钮
+
                             List<AccessibilityNodeInfo> backNodes =
-                                    nodeInfo.findAccessibilityNodeInfosByViewId("com.tencent.mm:id/h_");
+                                    nodeInfo.findAccessibilityNodeInfosByViewId(VIEW_ID_CHATTING_TV_BACK);
                             if ( !backNodes.isEmpty() ) {
                                 Log.e("MMMMMM", "没有 直接返回   关闭了-----");
                                 AccessibilityHelper.performClick(backNodes.get(0));
@@ -445,10 +542,11 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
                             AccessibilityNodeInfo node = list.get(i);
                             AccessibilityNodeInfo parent = node.getParent();
                             if ( parent != null ) {
+
                                 List<AccessibilityNodeInfo> wxhbNodes =
-                                        parent.findAccessibilityNodeInfosByViewId("com.tencent.mm:id/aec");
+                                        parent.findAccessibilityNodeInfosByViewId(VIEW_ID_HOME_LV_ITEM_LABEL_WXHB);
                                 if ( !wxhbNodes.isEmpty() ) {
-                                    if ( "微信红包".equals(wxhbNodes.get(0).getText()) ) {
+                                    if ( TEXT_LV_ITEM_TIPS.equals(wxhbNodes.get(0).getText()) ) {
                                         //是的 没错  领取红包
                                         AccessibilityHelper.performClick(node);
                                         return;
@@ -465,8 +563,9 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
     //    /关掉聊天页面
     @RequiresApi( api = Build.VERSION_CODES.JELLY_BEAN_MR2 )
     private void chatWindowClose(AccessibilityNodeInfo nodeInfo) {
+
         List<AccessibilityNodeInfo> backNodes =
-                nodeInfo.findAccessibilityNodeInfosByViewId("com.tencent.mm:id/h_");
+                nodeInfo.findAccessibilityNodeInfosByViewId(VIEW_ID_CHATTING_TV_BACK);
         if ( !backNodes.isEmpty() ) {
             Log.e("MMMMMM", "没有 直接返回   关闭了-----");
             AccessibilityHelper.performClick(backNodes.get(0));
@@ -483,9 +582,12 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
     /**
      * 获取微信的版本
      */
-    private int getWechatVersion() {
+    public int getWechatVersion() {
         if ( mWechatPackageInfo == null ) {
-            return 0;
+            updatePackageInfo();
+            if ( mWechatPackageInfo == null ) {
+                return 0;
+            }
         }
         return mWechatPackageInfo.versionCode;
     }

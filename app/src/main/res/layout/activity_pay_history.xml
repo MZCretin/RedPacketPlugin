@@ -41,7 +41,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="10dp"
-            android:text="单签状态"
+            android:text="当前状态"
             android:textColor="@color/font_black1"
             android:textSize="14sp"/>
 

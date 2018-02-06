@@ -79,6 +79,8 @@
         </activity>
         <activity android:name=".activity.PayHistoryActivity">
         </activity>
+        <activity android:name=".activity.RedPackageLogActivity">
+        </activity>
     </application>
 
 </manifest>

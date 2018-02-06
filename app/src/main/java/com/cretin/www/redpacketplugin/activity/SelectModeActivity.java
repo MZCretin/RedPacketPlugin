@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -46,16 +47,14 @@ public class SelectModeActivity extends BaseActivity {
     @BindView( R.id.ll_main_title )
     LinearLayout llMainTitle;
     private List<ModeListModel> list;
-    //模式选择 0 未选择 1 自动抢 单聊 2 自动抢 群聊 3 自动抢 all 4 通知 all 5 通知 单聊 6 通知 群聊
+    //模式选择 0 未选择 1 自动抢 单聊 2 自动抢 群聊 3 自动抢 all 4 仅打开红包页面
     private String[] titles = {"全自动抢红包（私聊）", "全自动抢红包（群聊）", "全自动抢红包（私聊和群聊）",
-            "仅通知手动抢（私聊）", "仅通知手动抢（群聊）", "仅通知手动抢（私聊和群聊）"};
+            "仅打开红包页面（手动抢）"};
     private String[] des = {"请停留在聊天列表页面，一旦有私信红包，自动抢红包后返回首页，请不要手动干预"
             , "请停留在聊天列表页面，一旦有群红包，自动抢红包后返回首页，请不要手动干预"
             , "请停留在聊天列表页面，一旦有私信和群红包，自动抢红包后返回首页，请不要手动干预"
-            , "您停留在聊天列表页面，有私信红包会提醒，如果您停留在私聊页面，当前用户私信红包，会提醒，其他私信红包不会提醒"
-            , "您停留在聊天列表页面，有群红包会提醒，如果您停留在群聊天页面，当前群有新红包，会提醒，其他群有红包不会提醒"
-            , "您停留在聊天列表页面，有群或者私信红包会提醒，如果您停留在群聊天或私聊页面，当前群或私聊有新红包，会提醒，其他群或私聊有红包不会提醒"};
-    private Integer[] type = {1, 2, 3, 5, 6, 4};
+            , "当发现有新红包的时候，只会打开红包所在的页面，用户自己手动抢红包"};
+    private Integer[] type = {1, 2, 3, 4};
     private Adapter adapter;
 
     private int currSelect = -1;
@@ -135,22 +134,38 @@ public class SelectModeActivity extends BaseActivity {
     private void setInfo(final int position) {
         showDialog();
         CusUser cusUser = KV.get(LocalStorageKeys.USER_INFO);
-        ModeListModel modeListModel = list.get(position);
+        final ModeListModel modeListModel = list.get(position);
         if ( cusUser != null ) {
             UserInfoModel userInfoModel = cusUser.getUserInfoModel();
             if ( userInfoModel != null ) {
-                UserInfoModel temp = new UserInfoModel();
-                temp.setModeState(modeListModel.getTypeValue());
-                temp.setModeStateValue(modeListModel.getTitle());
-                temp.update(userInfoModel.getObjectId(), new UpdateListener() {
+
+                BmobQuery<UserInfoModel> query = new BmobQuery<UserInfoModel>();
+                query.getObject(userInfoModel.getObjectId(), new QueryListener<UserInfoModel>() {
+
                     @Override
-                    public void done(BmobException e) {
-                        stopDialog();
+                    public void done(final UserInfoModel object, BmobException e) {
                         if ( e == null ) {
-                            currSelect = position;
-                            adapter.notifyDataSetChanged();
+                            object.setModeState(modeListModel.getTypeValue());
+                            object.setModeStateValue(modeListModel.getTitle());
+                            object.update(object.getObjectId(), new UpdateListener() {
+                                @Override
+                                public void done(BmobException e) {
+                                    stopDialog();
+                                    if ( e == null ) {
+                                        currSelect = position;
+                                        adapter.notifyDataSetChanged();
+                                        CusUser cusUser = KV.get(LocalStorageKeys.USER_INFO);
+                                        if ( cusUser != null ) {
+                                            cusUser.setUserInfoModel(object);
+                                            KV.put(LocalStorageKeys.USER_INFO, cusUser);
+                                        }
+                                    } else {
+                                        showToast("设置失败");
+                                    }
+                                }
+                            });
                         } else {
-                            showToast("设置失败");
+                            Log.i("bmob", "失败：" + e.getMessage() + "," + e.getErrorCode());
                         }
                     }
                 });

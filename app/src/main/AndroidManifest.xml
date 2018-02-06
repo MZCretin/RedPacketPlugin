@@ -25,6 +25,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <!-- 允许读取手机状态 用于创建BmobInstallation -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <!-- 允许读取手机状态 用于创建BmobInstallation -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".base.BaseApplication"
@@ -61,11 +63,21 @@
         </activity>
         <activity android:name=".activity.RegisterActivity">
         </activity>
+        <activity android:name=".activity.PermissionsActivity">
+        </activity>
         <activity android:name=".activity.ResetPswActivity">
         </activity>
         <activity android:name=".activity.MainActivity">
         </activity>
         <activity android:name=".activity.SelectModeActivity">
+        </activity>
+        <activity android:name=".activity.VipActivity">
+        </activity>
+        <activity android:name=".activity.VipInfoActivity">
+        </activity>
+        <activity android:name=".activity.PayActivity">
+        </activity>
+        <activity android:name=".activity.PayHistoryActivity">
         </activity>
     </application>
 

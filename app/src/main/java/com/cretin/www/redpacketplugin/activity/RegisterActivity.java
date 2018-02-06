@@ -227,8 +227,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         userInfoModel.setInviteList(null);
         //默认一天时间
         userInfoModel.setLeftDays(1);
-        userInfoModel.setModeState(0);
-        userInfoModel.setModeStateValue("当前未选择");
+        userInfoModel.setModeState(4);
+        userInfoModel.setModeStateValue("仅打开红包页面（手动抢）");
         userInfoModel.setPackageNums(0);
         userInfoModel.setVipLevel(0);
         userInfoModel.save(new SaveListener<String>() {

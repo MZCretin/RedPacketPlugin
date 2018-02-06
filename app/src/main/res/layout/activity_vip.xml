@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.cretin.www.redpacketplugin.activity.VipActivity">
+
+    <include layout="@layout/title_layout"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+                android:text="会员套餐"
+                android:textColor="@color/font_black1"
+                android:textSize="14sp"/>
+
+            <include layout="@layout/line"/>
+
+            <LinearLayout
+                android:id="@+id/ll_01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/item_bg_selector"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:id="@+id/tv01"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="周卡VIP会员 （7天） "
+                    android:textColor="@color/font_black1"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/tv01_des"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="7元（优惠最低）"
+                    android:textColor="@color/font_black1"
+                    android:textSize="14sp"/>
+
+                <ImageView
+                    android:id="@+id/iv_01"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@mipmap/select"/>
+
+            </LinearLayout>
+
+            <include layout="@layout/line"/>
+            <!--0 普通用户 1 周卡  2 月卡  3 终生免费-->
+            <LinearLayout
+                android:id="@+id/ll_02"
+                android:background="@drawable/item_bg_selector"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:id="@+id/tv02"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="月卡VIP会员 （30天）"
+                    android:textColor="@color/font_black1"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/tv02_des"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="28元（优惠2元）"
+                    android:textColor="@color/font_black1"
+                    android:textSize="14sp"/>
+
+                <ImageView
+                    android:id="@+id/iv_02"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@mipmap/select"/>
+
+            </LinearLayout>
+
+            <include layout="@layout/line"/>
+
+            <LinearLayout
+                android:id="@+id/ll_03"
+                android:background="@drawable/item_bg_selector"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:id="@+id/tv03"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="年费VIP会员 "
+                    android:textColor="@color/font_black1"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/tv03_des"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="98元（优惠最大）"
+                    android:textColor="@color/font_black1"
+                    android:textSize="14sp"/>
+
+                <ImageView
+                    android:id="@+id/iv_03"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@mipmap/select"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/app_bg_color"/>
+
+            <TextView
+                android:paddingBottom="10dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="支付方式"
+                android:textColor="@color/font_black1"
+                android:textSize="14sp"/>
+
+            <include layout="@layout/line"/>
+
+            <LinearLayout
+                android:background="@drawable/item_bg_selector"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:id="@+id/ll_zhifubao"
+                android:paddingLeft="16dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@mipmap/zhifubao"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="支付宝"
+                    android:textColor="@color/font_black1"
+                    android:textSize="14sp"/>
+
+                <ImageView
+                    android:id="@+id/iv_zhifubao"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@mipmap/select"/>
+
+            </LinearLayout>
+
+            <include layout="@layout/line"/>
+
+            <LinearLayout
+                android:id="@+id/ll_weixin"
+                android:background="@drawable/item_bg_selector"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@mipmap/weixin"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="微信"
+                    android:textColor="@color/font_black1"
+                    android:textSize="14sp"/>
+
+                <ImageView
+                    android:id="@+id/iv_weixin"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@mipmap/select"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/app_bg_color"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+                android:text="会员说明"
+                android:textColor="@color/font_black1"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:lineSpacingExtra="4dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="10dp"
+                android:text="1、每个新用户注册之后都会赠送一天的体验时长，体验时长用完之后，所有的功能都将无法使用，只有成为会员才能使用抢红包的功能。\n2、会员可体验3秒极速自动领取红包的快感，红包收入盆满钵满（具体时间与手机和网络状态有关）。\n3、所购买的VIP会员用户个人专享，不可转让，购买之后，不提供退订与退款服务。"
+                android:textColor="@color/font_black1"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/tv_open"
+                android:layout_marginBottom="30dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_button_round100"
+                android:padding="10dp"
+                android:text="开通会员"
+                android:textSize="16sp"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

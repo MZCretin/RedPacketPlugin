@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.cretin.www.redpacketplugin.activity.PayActivity">
+
+    <include layout="@layout/title_layout"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_pic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/app_bg_color"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="会员套餐名："
+                    android:textColor="@color/font_black1"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/tv_taocan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="12dp"
+                    android:textColor="@color/font_black1"
+                    android:textSize="14sp"/>
+
+            </LinearLayout>
+
+            <include layout="@layout/line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="付款订单号："
+                    android:textColor="@color/font_black1"
+                    android:textSize="14sp"/>
+
+                <EditText
+                    android:id="@+id/et_dingdan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:hint="请输入付款成功后的订单号"
+                    android:inputType="textMultiLine"
+                    android:padding="12dp"
+                    android:textColor="@color/font_black1"
+                    android:textSize="14sp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_commit"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_button_round100"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="提交审核"
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="16dp"
+                android:paddingTop="16dp"
+                android:text="说明："
+                android:textColor="@color/font_black1"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:lineSpacingExtra="4dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="10dp"
+                android:text="1、扫面上方二维码支付，支付成功之后在支付宝的账单列表里可以获取到一个刚刚支付成功的订单号，将此订单号复制粘贴在上面订单号的输入框中，点击提交审核即可，我们的客服会在一个工作日内给您审核通过，审核通过之后才能享受会员特权。\n2、如果付款不方便可以点击右上角保存付款码将付款码保存付款码到本地相册，打开支付宝扫一扫选择本地相册即可轻松识别。\n3、请确定您扫描后的出现的收款人和上方图片中的昵称是一样的时候才能付款。\n4、一个付款订单号只能用于一次会员的充值，请不要使用一个订单号重复提交，一经被发现恶意提交，账号将被永久封闭。\n5、如果提交之后着急使用，可以使用紧急通道联系我们的客服快速审核。Email：mxnzp_cretin@163.com\n6、一旦您扫码付款成功，就代表您已经默认软件是可以在您的设备上有效运行的，所以已付款项将不能以任何理由退回。"
+                android:textColor="@color/font_black1"
+                android:textSize="14sp"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

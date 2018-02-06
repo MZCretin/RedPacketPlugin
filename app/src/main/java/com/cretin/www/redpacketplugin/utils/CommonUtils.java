@@ -98,7 +98,7 @@ public class CommonUtils {
      */
     public static String timeLongFormatToStr(long time) {
         //2018-02-01 14:38:45
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd HH:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
         return simpleDateFormat.format(new Date(time));
     }
 

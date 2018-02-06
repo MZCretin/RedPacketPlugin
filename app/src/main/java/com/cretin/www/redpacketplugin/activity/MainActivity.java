@@ -3,6 +3,7 @@ package com.cretin.www.redpacketplugin.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.RelativeSizeSpan;
@@ -61,8 +62,6 @@ public class MainActivity extends BaseActivity {
     TextView tvState;
     @BindView( R.id.tv_open )
     TextView tvOpen;
-    @BindView( R.id.tv_vip )
-    TextView tvVip;
     @BindView( R.id.tv_vip_des )
     TextView tvVipDes;
     @BindView( R.id.ll_vip )
@@ -78,6 +77,8 @@ public class MainActivity extends BaseActivity {
     @BindView( R.id.ll_shuoming )
     LinearLayout llShuoming;
     public static final String TAG = "MainActivity";
+    @BindView( R.id.swip_refresh )
+    SwipeRefreshLayout swipRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,23 +86,22 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         cusUser = KV.get(LocalStorageKeys.USER_INFO);
-        showDialog();
-        if ( cusUser != null ) {
-            BmobQuery<CusUser> query = new BmobQuery<CusUser>();
-            query.include("userInfoModel");
-            query.getObject(cusUser.getObjectId(), new QueryListener<CusUser>() {
-                @Override
-                public void done(CusUser object, BmobException e) {
-                    if ( e == null ) {
-                        showData(object);
-                    } else {
-                        showToast("加载超时,请稍后再试");
-                    }
-                    stopDialog();
-                }
-            });
-        }
 
+        swipRefresh.setColorSchemeResources(
+                android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
+        swipRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                addData();
+            }
+        });
+
+        showDialog();
+        addData();
         //设置切换监听
         tbNotification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -115,10 +115,30 @@ public class MainActivity extends BaseActivity {
                 setInfo();
             }
         });
+    }
+
+    private void addData() {
+        if ( cusUser != null ) {
+            BmobQuery<CusUser> query = new BmobQuery<>();
+            query.include("userInfoModel");
+            query.getObject(cusUser.getObjectId(), new QueryListener<CusUser>() {
+                @Override
+                public void done(CusUser object, BmobException e) {
+                    if ( e == null ) {
+                        KV.put(LocalStorageKeys.USER_INFO, object);
+                        showData(object);
+                    } else {
+                        showToast("加载超时,请稍后再试");
+                    }
+                    stopDialog();
+                    swipRefresh.setRefreshing(false);
+                }
+            });
+        }
 
         //同步本地数据到服务器
         final List<RedPackageInfoModel> list = KV.get(LocalStorageKeys.RED_PACKAGE_LIST);
-        if ( list != null ) {
+        if ( list != null && !list.isEmpty() ) {
             List<BmobObject> datas = new ArrayList<>();
             for ( RedPackageInfoModel red :
                     list ) {
@@ -150,15 +170,22 @@ public class MainActivity extends BaseActivity {
                                 query.getObject(userInfoModel.getObjectId(), new QueryListener<UserInfoModel>() {
 
                                     @Override
-                                    public void done(UserInfoModel object, BmobException e) {
+                                    public void done(final UserInfoModel object, BmobException e) {
                                         if ( e == null ) {
-                                            UserInfoModel temp = new UserInfoModel();
-                                            temp.setAllMoney(object.getAllMoney() + allMoney[0]);
-                                            temp.setPackageNums(object.getPackageNums() + finalNum);
-                                            temp.update(object.getObjectId(), new UpdateListener() {
+                                            object.setAllMoney(object.getAllMoney() + allMoney[0]);
+                                            object.setPackageNums(object.getPackageNums() + finalNum);
+                                            object.update(object.getObjectId(), new UpdateListener() {
                                                 @Override
                                                 public void done(BmobException e) {
-                                                    KV.put(LocalStorageKeys.RED_PACKAGE_LIST, null);
+                                                    if ( e == null ) {
+                                                        KV.put(LocalStorageKeys.RED_PACKAGE_LIST, null);
+
+                                                        CusUser cusUser = KV.get(LocalStorageKeys.USER_INFO);
+                                                        if ( cusUser != null ) {
+                                                            cusUser.setUserInfoModel(object);
+                                                            KV.put(LocalStorageKeys.USER_INFO, cusUser);
+                                                        }
+                                                    }
                                                 }
                                             });
                                         } else {
@@ -231,6 +258,8 @@ public class MainActivity extends BaseActivity {
             //设置通知和提示音状态
             tbYinxiao.setChecked(userInfoModel.getTishiyinState() == 0 ? false : true);
             tbNotification.setChecked(userInfoModel.getTongzhiState() == 0 ? false : true);
+            //设置模式
+            tvModeDes.setText(userInfoModel.getModeStateValue());
         }
         firstIn++;
     }
@@ -258,23 +287,38 @@ public class MainActivity extends BaseActivity {
         if ( firstIn == 0 )
             return;
         showDialog("设置中...");
-        CusUser cusUser = KV.get(LocalStorageKeys.USER_INFO);
         if ( cusUser != null ) {
             UserInfoModel userInfoModel = cusUser.getUserInfoModel();
             if ( userInfoModel != null ) {
-                UserInfoModel temp = new UserInfoModel();
-                temp.setTongzhiState(tbNotification.isChecked() ? 1 : 0);
-                temp.setTishiyinState(tbYinxiao.isChecked() ? 1 : 0);
-                temp.update(userInfoModel.getObjectId(), new UpdateListener() {
+                //获取单条数据
+                BmobQuery<UserInfoModel> query = new BmobQuery<UserInfoModel>();
+                query.getObject(userInfoModel.getObjectId(), new QueryListener<UserInfoModel>() {
+
                     @Override
-                    public void done(BmobException e) {
-                        stopDialog();
+                    public void done(final UserInfoModel object, BmobException e) {
                         if ( e == null ) {
-                            showToast("设置成功");
+                            object.setTongzhiState(tbNotification.isChecked() ? 1 : 0);
+                            object.setTishiyinState(tbYinxiao.isChecked() ? 1 : 0);
+                            object.update(object.getObjectId(), new UpdateListener() {
+                                @Override
+                                public void done(BmobException e) {
+                                    stopDialog();
+                                    if ( e == null ) {
+                                        showToast("设置成功");
+                                        CusUser cusUser = KV.get(LocalStorageKeys.USER_INFO);
+                                        if ( cusUser != null ) {
+                                            cusUser.setUserInfoModel(object);
+                                            KV.put(LocalStorageKeys.USER_INFO, cusUser);
+                                        }
+                                    } else {
+                                        showToast("设置失败");
+                                        tbNotification.setChecked(!tbNotification.isChecked());
+                                        tbYinxiao.setChecked(!tbYinxiao.isChecked());
+                                    }
+                                }
+                            });
                         } else {
-                            showToast("设置失败");
-                            tbNotification.setChecked(!tbNotification.isChecked());
-                            tbYinxiao.setChecked(!tbYinxiao.isChecked());
+                            Log.i("bmob", "失败：" + e.getMessage() + "," + e.getErrorCode());
                         }
                     }
                 });
@@ -310,6 +354,7 @@ public class MainActivity extends BaseActivity {
                 }
                 break;
             case R.id.ll_vip:
+                startActivity(new Intent(this, VipInfoActivity.class));
                 break;
             case R.id.ll_mode:
                 startActivity(new Intent(this, SelectModeActivity.class));

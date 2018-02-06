@@ -1,493 +1,507 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<android.support.v4.widget.SwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/swip_refresh"
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context="com.cretin.www.redpacketplugin.activity.MainActivity">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/common_color"
-            android:gravity="center"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.cretin.www.redpacketplugin.utils.CircleImageView
-                android:id="@+id/iv_avatar"
-                android:layout_width="66dp"
-                android:layout_height="66dp"
-                android:layout_marginTop="20dp"
-                android:src="@mipmap/avatar"/>
-
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="17dp"
+                android:background="@color/common_color"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_username"
+                <com.cretin.www.redpacketplugin.utils.CircleImageView
+                    android:id="@+id/iv_avatar"
+                    android:layout_width="66dp"
+                    android:layout_height="66dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@mipmap/avatar"/>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="九号糖炒栗子"
-                    android:textColor="#ffe2a3"
-                    android:textSize="@dimen/text_size_17"/>
+                    android:layout_marginTop="17dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/iv_level"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="10dp"
-                    android:src="@mipmap/vip_gray"/>
+                    <TextView
+                        android:id="@+id/tv_username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#ffe2a3"
+                        android:textSize="@dimen/text_size_17"/>
+
+                    <ImageView
+                        android:id="@+id/iv_level"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:src="@mipmap/vip_gray"/>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_user_des"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="14dp"
+                    android:layout_marginTop="14dp"
+                    android:gravity="center"
+                    android:lineSpacingExtra="4dp"
+                    android:textColor="#ccffffff"
+                    android:textSize="@dimen/text_size_14"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
+                        android:text="累计抢到红包个数"
+                        android:textColor="#4a4a4a"
+                        android:textSize="@dimen/text_size_12"/>
+
+                    <TextView
+                        android:id="@+id/tv_leijinums"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0个"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="@dimen/text_size_32"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="1dp"
+                    android:layout_height="50dp"
+                    android:background="#8e8e93"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
+                        android:text="累计抢到红包金额"
+                        android:textColor="#4a4a4a"
+                        android:textSize="@dimen/text_size_12"/>
+
+                    <TextView
+                        android:id="@+id/tv_leijimoney"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0元"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="@dimen/text_size_32"/>
+
+                </LinearLayout>
+
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_user_des"
+                android:id="@+id/tv_state"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="14dp"
-                android:layout_marginTop="14dp"
-                android:gravity="center"
-                android:hint="试用期截止于2018年01月31日"
-                android:textColor="#ccffffff"
+                android:layout_gravity="center"
+                android:paddingLeft="26dp"
+                android:paddingRight="26dp"
+                android:text="正在持续为您抢红包中..."
+                android:textColor="@color/font_black4"
                 android:textSize="@dimen/text_size_14"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingBottom="20dp"
-            android:paddingTop="20dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:text="累计抢到红包个数"
-                    android:textColor="#4a4a4a"
-                    android:textSize="@dimen/text_size_12"/>
-
-                <TextView
-                    android:id="@+id/tv_leijinums"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0个"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="@dimen/text_size_32"/>
-
-            </LinearLayout>
 
             <TextView
-                android:layout_width="1dp"
-                android:layout_height="50dp"
-                android:background="#8e8e93"/>
+                android:id="@+id/tv_open"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@drawable/bg_button_round100"
+                android:paddingBottom="10dp"
+                android:paddingLeft="26dp"
+                android:paddingRight="26dp"
+                android:paddingTop="10dp"
+                android:text="开启自动抢红包"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/text_size_18"/>
 
-            <LinearLayout
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="温馨提示：累计红包个数和金额数据会有一定的延时，请知悉"
+                android:textColor="@color/font_black2"
+                android:textSize="@dimen/text_size_12"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:text="累计抢到红包金额"
-                    android:textColor="#4a4a4a"
-                    android:textSize="@dimen/text_size_12"/>
-
-                <TextView
-                    android:id="@+id/tv_leijimoney"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0元"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="@dimen/text_size_32"/>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tv_state"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:paddingLeft="26dp"
-            android:paddingRight="26dp"
-            android:text="正在持续为您抢红包中..."
-            android:textColor="#FFCDD2"
-            android:textSize="@dimen/text_size_14"/>
-
-        <TextView
-            android:id="@+id/tv_open"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:background="@drawable/bg_button_round100"
-            android:paddingBottom="10dp"
-            android:paddingLeft="26dp"
-            android:paddingRight="26dp"
-            android:paddingTop="10dp"
-            android:text="开启自动抢红包"
-            android:textColor="#ffffff"
-            android:textSize="@dimen/text_size_18"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:background="@color/app_bg_color"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/item_bg_selector"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:visibility="visible">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/app_bg_color"/>
 
             <LinearLayout
                 android:id="@+id/ll_vip"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_vip"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/item_bg_selector"
-                    android:drawablePadding="10dp"
-                    android:gravity="center_vertical"
-                    android:paddingBottom="2dp"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="10dp"
-                    android:paddingTop="12dp"
-                    android:text="VIP用户权限"
-                    android:textColor="@color/font_black1"
-                    android:textSize="@dimen/text_size_16"/>
-
-                <TextView
-                    android:id="@+id/tv_vip_des"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:paddingBottom="16dp"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="10dp"
-                    android:text="您是普通用户，试用期截止于2018年01月31日"
-                    android:textColor="@color/font_black4"
-                    android:textSize="@dimen/text_size_12"/>
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="5dp"
-                android:drawableRight="@mipmap/arrow_right"
+                android:background="@drawable/item_bg_selector"
                 android:gravity="center"
-                android:paddingRight="10dp"
-                android:textColor="@color/font_black4"
-                android:textSize="@dimen/text_size_14"/>
-        </LinearLayout>
+                android:orientation="horizontal"
+                android:visibility="visible">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:background="@color/app_bg_color"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/item_bg_selector"
-            android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="10dp"
+                        android:gravity="center_vertical"
+                        android:paddingBottom="2dp"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="12dp"
+                        android:text="VIP用户权限"
+                        android:textColor="@color/font_black1"
+                        android:textSize="@dimen/text_size_16"/>
+
+                    <TextView
+                        android:id="@+id/tv_vip_des"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:paddingBottom="16dp"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="10dp"
+                        android:text="您是普通用户，试用期截止于2018年01月31日"
+                        android:textColor="@color/font_black4"
+                        android:textSize="@dimen/text_size_12"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@mipmap/arrow_right"
+                    android:gravity="center"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/font_black4"
+                    android:textSize="@dimen/text_size_14"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/app_bg_color"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="10dp"
-                    android:paddingTop="16dp"
-                    android:text="监听系统通知"
-                    android:textColor="@color/font_black1"
-                    android:textSize="@dimen/text_size_16"/>
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="16dp"
+                        android:text="监听系统通知"
+                        android:textColor="@color/font_black1"
+                        android:textSize="@dimen/text_size_16"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:paddingBottom="16dp"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="10dp"
+                        android:text="读取微信新消息通知中的红包（不开启就只有在打开微信的情况下才会检测红包）"
+                        android:textColor="@color/font_black4"
+                        android:textSize="@dimen/text_size_12"/>
+                </LinearLayout>
+
+                <ToggleButton
+                    android:id="@+id/tb_notification"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:paddingBottom="16dp"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="10dp"
-                    android:text="读取微信新消息通知中的红包（不开启就只有在打开微信的情况下才会检测红包）"
-                    android:textColor="@color/font_black4"
-                    android:textSize="@dimen/text_size_12"/>
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="-20dp"
+                    android:background="@null"
+                    android:button="@drawable/toggle_button_selector"
+                    android:textOff=""
+                    android:textOn=""/>
+
             </LinearLayout>
 
-            <ToggleButton
-                android:id="@+id/tb_notification"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="-20dp"
-                android:background="@null"
-                android:button="@drawable/toggle_button_selector"
-                android:textOff=""
-                android:textOn=""/>
-
-        </LinearLayout>
-
-        <include layout="@layout/lined8"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/item_bg_selector"
-            android:orientation="horizontal">
+            <include layout="@layout/lined8"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:background="@drawable/item_bg_selector"
+                android:orientation="horizontal">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="10dp"
-                    android:paddingTop="16dp"
-                    android:text="提示音和震动通知"
-                    android:textColor="@color/font_black1"
-                    android:textSize="@dimen/text_size_16"/>
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="16dp"
+                        android:text="提示音和震动通知"
+                        android:textColor="@color/font_black1"
+                        android:textSize="@dimen/text_size_16"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:paddingBottom="16dp"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="10dp"
+                        android:text="自动抢模式下成功抢到红包提示；手动抢模式下检测到有红包后提示"
+                        android:textColor="@color/font_black4"
+                        android:textSize="@dimen/text_size_12"/>
+                </LinearLayout>
+
+                <ToggleButton
+                    android:id="@+id/tb_yinxiao"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:paddingBottom="16dp"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="10dp"
-                    android:text="自动抢模式下成功抢到红包提示；手动抢模式下检测到有红包后提示"
-                    android:textColor="@color/font_black4"
-                    android:textSize="@dimen/text_size_12"/>
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="-20dp"
+                    android:background="@null"
+                    android:button="@drawable/toggle_button_selector"
+                    android:textOff=""
+                    android:textOn=""/>
+
             </LinearLayout>
 
-            <ToggleButton
-                android:id="@+id/tb_yinxiao"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="-20dp"
-                android:background="@null"
-                android:button="@drawable/toggle_button_selector"
-                android:textOff=""
-                android:textOn=""/>
-
-        </LinearLayout>
-
-        <include layout="@layout/lined8"/>
-
-        <LinearLayout
-            android:id="@+id/ll_mode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/item_bg_selector"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:visibility="visible">
+            <include layout="@layout/lined8"/>
 
             <LinearLayout
+                android:id="@+id/ll_mode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/item_bg_selector"
-                    android:drawablePadding="10dp"
-                    android:gravity="center_vertical"
-                    android:paddingBottom="2dp"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="10dp"
-                    android:paddingTop="12dp"
-                    android:text="模式选择"
-                    android:textColor="@color/font_black1"
-                    android:textSize="@dimen/text_size_16"/>
-
-                <TextView
-                    android:id="@+id/tv_mode_des"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:paddingBottom="16dp"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="10dp"
-                    android:text="所有类型只通知"
-                    android:textColor="@color/font_black4"
-                    android:textSize="@dimen/text_size_12"/>
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="5dp"
-                android:drawableRight="@mipmap/arrow_right"
+                android:background="@drawable/item_bg_selector"
                 android:gravity="center"
-                android:paddingRight="10dp"
-                android:textColor="@color/font_black4"
-                android:textSize="@dimen/text_size_14"/>
-        </LinearLayout>
+                android:orientation="horizontal"
+                android:visibility="visible">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:background="@color/app_bg_color"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/ll_shuoming"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/item_bg_selector"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:visibility="visible">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/item_bg_selector"
+                        android:drawablePadding="10dp"
+                        android:gravity="center_vertical"
+                        android:paddingBottom="2dp"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="12dp"
+                        android:text="模式选择"
+                        android:textColor="@color/font_black1"
+                        android:textSize="@dimen/text_size_16"/>
+
+                    <TextView
+                        android:id="@+id/tv_mode_des"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:paddingBottom="16dp"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="10dp"
+                        android:text="所有类型只通知"
+                        android:textColor="@color/font_black4"
+                        android:textSize="@dimen/text_size_12"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@mipmap/arrow_right"
+                    android:gravity="center"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/font_black4"
+                    android:textSize="@dimen/text_size_14"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/app_bg_color"/>
+
+            <LinearLayout
+                android:id="@+id/ll_shuoming"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/item_bg_selector"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/item_bg_selector"
+                        android:drawablePadding="10dp"
+                        android:gravity="center_vertical"
+                        android:paddingBottom="2dp"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="12dp"
+                        android:text="使用说明"
+                        android:textColor="@color/font_black1"
+                        android:textSize="@dimen/text_size_16"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:paddingBottom="16dp"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="10dp"
+                        android:text="快速使用Cretin插件抢到海量红包"
+                        android:textColor="@color/font_black4"
+                        android:textSize="@dimen/text_size_12"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@mipmap/arrow_right"
+                    android:gravity="center"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/font_black4"
+                    android:textSize="@dimen/text_size_14"/>
+            </LinearLayout>
+
+            <include layout="@layout/lined8"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:background="@drawable/item_bg_selector"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="visible">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/item_bg_selector"
-                    android:drawablePadding="10dp"
-                    android:gravity="center_vertical"
-                    android:paddingBottom="2dp"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="10dp"
-                    android:paddingTop="12dp"
-                    android:text="使用说明"
-                    android:textColor="@color/font_black1"
-                    android:textSize="@dimen/text_size_16"/>
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/item_bg_selector"
+                        android:drawablePadding="10dp"
+                        android:gravity="center_vertical"
+                        android:paddingBottom="2dp"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="12dp"
+                        android:text="日志记录"
+                        android:textColor="@color/font_black1"
+                        android:textSize="@dimen/text_size_16"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:paddingBottom="16dp"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="10dp"
+                        android:text="用户当天成功抢到的红包的列表数据"
+                        android:textColor="@color/font_black4"
+                        android:textSize="@dimen/text_size_12"/>
+                </LinearLayout>
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:paddingBottom="16dp"
-                    android:paddingLeft="16dp"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@mipmap/arrow_right"
+                    android:gravity="center"
                     android:paddingRight="10dp"
-                    android:text="快速使用Cretin插件抢到海量红包"
                     android:textColor="@color/font_black4"
-                    android:textSize="@dimen/text_size_12"/>
+                    android:textSize="@dimen/text_size_14"/>
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="5dp"
-                android:drawableRight="@mipmap/arrow_right"
-                android:gravity="center"
-                android:paddingRight="10dp"
-                android:textColor="@color/font_black4"
-                android:textSize="@dimen/text_size_14"/>
-        </LinearLayout>
-
-        <include layout="@layout/lined8"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/item_bg_selector"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:visibility="visible">
-
-            <LinearLayout
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/item_bg_selector"
-                    android:drawablePadding="10dp"
-                    android:gravity="center_vertical"
-                    android:paddingBottom="2dp"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="10dp"
-                    android:paddingTop="12dp"
-                    android:text="日志记录"
-                    android:textColor="@color/font_black1"
-                    android:textSize="@dimen/text_size_16"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:paddingBottom="16dp"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="10dp"
-                    android:text="用户当天成功抢到的红包的列表数据"
-                    android:textColor="@color/font_black4"
-                    android:textSize="@dimen/text_size_12"/>
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="5dp"
-                android:drawableRight="@mipmap/arrow_right"
-                android:gravity="center"
-                android:paddingRight="10dp"
-                android:textColor="@color/font_black4"
-                android:textSize="@dimen/text_size_14"/>
+                android:layout_height="10dp"
+                android:background="@color/app_bg_color"/>
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:background="@color/app_bg_color"/>
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</android.support.v4.widget.SwipeRefreshLayout>

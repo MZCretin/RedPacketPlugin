@@ -68,8 +68,9 @@ public class RedPackageLogActivity extends BaseActivity {
 
         BmobQuery<RedPackageInfoModel> query = new BmobQuery<RedPackageInfoModel>();
         query.addWhereEqualTo("authorUserId", cusUser.getObjectId());
+        query.addWhereGreaterThan("money", 0);
         query.setLimit(10);
-        query.setSkip(page);
+        query.setSkip(page * 10);
         query.order("-createdAt");
         query.findObjects(new FindListener<RedPackageInfoModel>() {
             @Override

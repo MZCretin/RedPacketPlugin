@@ -84,6 +84,7 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
         public void onReceive(Context context, Intent intent) {
             //更新安装包信息
             updatePackageInfo();
+            setMainInfo();
         }
     };
 
@@ -100,6 +101,8 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
         filter.addAction("android.intent.action.PACKAGE_REMOVED");
 
         getContext().registerReceiver(broadcastReceiver, filter);
+
+        setMainInfo();
     }
 
     @Override
@@ -113,11 +116,9 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
 
     @Subscribe
     public void notifyDataNotPreparedSuccess(NotifyDataNotPreparedSuccess event) {
-        if ( !"PREPARE".equals(FLAG) ) {
-            //未准备就绪
-            setMainInfo();
-        }
-        Log.e("HHHHHHHHHHH","6666666666666");
+        //未准备就绪
+        setMainInfo();
+        Log.e("HHHHHHHHHHH", "6666666666666");
     }
 
     @TargetApi( Build.VERSION_CODES.JELLY_BEAN_MR2 )
@@ -141,11 +142,10 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
     public void onReceiveJob(AccessibilityEvent event, CusUser cusUser) {
         if ( !"PREPARE".equals(FLAG) ) {
             //未准备就绪
-            setMainInfo();
-            handleHongBao(event, cusUser);
-        } else {
-            //数据未加载
             EventBus.getDefault().post(new NotifyDataNotPrepare());
+        } else {
+            //数据已加载
+            handleHongBao(event, cusUser);
         }
     }
 
@@ -314,6 +314,7 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
             } else if ( CLASS_NAME_DETAIL_UI.equals(className) ) {
                 //拆完红包后看详细的纪录界面 这里提取下数据后退出就好
                 RedPackageInfoModel indo = new RedPackageInfoModel();
+                indo.setWeixinVersion(getWechatVersion());
                 indo.setPackageTime(CommonUtils.timeLongFormatToStr(new Date(System.currentTimeMillis()).getTime()));
                 //获取金额关闭按钮
 
@@ -329,7 +330,6 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
                     }
                 }
                 //获取发红包的用户名
-
                 List<AccessibilityNodeInfo> userNodes =
                         nodeInfo.findAccessibilityNodeInfosByViewId(VIEW_ID_DETAIL_USERNAME);
                 if ( !userNodes.isEmpty() ) {
@@ -582,14 +582,14 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
     /**
      * 获取微信的版本
      */
-    public int getWechatVersion() {
+    public String getWechatVersion() {
         if ( mWechatPackageInfo == null ) {
             updatePackageInfo();
             if ( mWechatPackageInfo == null ) {
-                return 0;
+                return "位置版本";
             }
         }
-        return mWechatPackageInfo.versionCode;
+        return mWechatPackageInfo.versionName;
     }
 
     /**

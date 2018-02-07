@@ -95,13 +95,17 @@ public class LoginActivity extends BaseActivity {
         CusUser bu2 = new CusUser();
         bu2.setUsername(phone);
         bu2.setPassword(password);
-        bu2.add("include","userInfoModel");
         bu2.login(new SaveListener<CusUser>() {
                       @Override
                       public void done(CusUser bmobUser, BmobException e) {
                           stopDialog();
                           if ( e == null ) {
                               showToast("登录成功");
+                              CusUser cusUser = KV.get(LocalStorageKeys.USER_INFO);
+                              if ( cusUser != null ) {
+                                  bmobUser.setUserInfoModel(cusUser.getUserInfoModel());
+                              }
+                              KV.put(LocalStorageKeys.USER_INFO, bmobUser);
                               //保存账户和密码
                               String info = phone + "#" + password;
                               KV.put(LocalStorageKeys.USER_LOGIN_INFO, info);

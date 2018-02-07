@@ -19,6 +19,16 @@ public class RedPackageInfoModel extends BmobObject{
     private String authorPhone;
     //所属用户id
     private String authorUserId;
+    //version
+    private String weixinVersion;
+
+    public String getWeixinVersion() {
+        return weixinVersion;
+    }
+
+    public void setWeixinVersion(String weixinVersion) {
+        this.weixinVersion = weixinVersion;
+    }
 
     public String getAuthorPhone() {
         return authorPhone;

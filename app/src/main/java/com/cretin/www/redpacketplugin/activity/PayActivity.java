@@ -144,8 +144,6 @@ public class PayActivity extends BaseActivity {
         }
         if ( requestCode == REQUEST_CODE && resultCode == PermissionsActivity.PERMISSIONS_GRANTED ) {
             showToast("授权成功");
-            showDialog("正在下载...");
-            download("http://jokesimg.cretinzp.com/common/red_plugin/zhifu/weixin_28_pic.jpg");
         }
     }
 

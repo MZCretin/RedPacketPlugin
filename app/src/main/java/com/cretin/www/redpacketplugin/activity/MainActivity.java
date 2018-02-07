@@ -128,11 +128,36 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        //加载配置文件
-        getPeizhi();
+        //v6.6.2 1240
+//        WeixinNodeModel weixinNodeModel = new WeixinNodeModel();
+//        weixinNodeModel.setCL_NAME_RV_UI("com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyReceiveUI");
+//        weixinNodeModel.setCL_NAME_EL_UI("com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyDetailUI");
+//        weixinNodeModel.setID_RV_BTN_OPEN("com.tencent.mm:id/c4j");//
+//        weixinNodeModel.setID_RV_TV_SHOWMANLE("com.tencent.mm:id/c4i");//
+//        weixinNodeModel.setID_RV_CLOSE("com.tencent.mm:id/c28");//
+//        weixinNodeModel.setID_EL_MONEY("com.tencent.mm:id/c0w");//
+//        weixinNodeModel.setID_EL_USERNAME("com.tencent.mm:id/c0s");//
+//        weixinNodeModel.setID_EL_TIME_TO_QIANG("com.tencent.mm:id/c1b");//
+//        weixinNodeModel.setID_EL_PINSHOUQI("com.tencent.mm:id/c0t");//
+//        weixinNodeModel.setID_EL_CLOSE("com.tencent.mm:id/hy");//
+//        weixinNodeModel.setID_CHATTING_TV_ADD("com.tencent.mm:id/aag");//
+//        weixinNodeModel.setID_HO_LV_IM("com.tencent.mm:id/app");//
+//        weixinNodeModel.setID_HO_LV_IM_CONTENT("com.tencent.mm:id/apt");//
+//        weixinNodeModel.setID_HO_LV_IM_NUMBER("com.tencent.mm:id/j4");//
+//        weixinNodeModel.setID_CHATTING_TV_TITLE("com.tencent.mm:id/hj");//
+//        weixinNodeModel.setID_HO_LV_IM_LB_WXHB("com.tencent.mm:id/aea");//
+//        weixinNodeModel.setID_CHATTING_TV_BACK("com.tencent.mm:id/hi");//
+//        weixinNodeModel.setCOMMEN_TEXT_INFO("com.tencent.mm [微信红包] 手慢了，红包派完了 领取红包 微信红包");
+//        weixinNodeModel.setVersionCode(1240);
+//        weixinNodeModel.setSTR_SPLIT(" ");
+//        weixinNodeModel.save(new SaveListener<String>() {
+//            @Override
+//            public void done(String s, BmobException e) {
+//                showToast(s);
+//            }
+//        });
 
-//        showToast(getVersion() + "");
-
+        //v6.6.1 1220
 //        WeixinNodeModel weixinNodeModel = new WeixinNodeModel();
 //        weixinNodeModel.setCL_NAME_RV_UI("com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyReceiveUI");
 //        weixinNodeModel.setCL_NAME_EL_UI("com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyDetailUI");
@@ -153,6 +178,209 @@ public class MainActivity extends BaseActivity {
 //        weixinNodeModel.setID_CHATTING_TV_BACK("com.tencent.mm:id/h_");
 //        weixinNodeModel.setCOMMEN_TEXT_INFO("com.tencent.mm [微信红包] 手慢了，红包派完了 领取红包 微信红包");
 //        weixinNodeModel.setVersionCode(1220);
+//        weixinNodeModel.setSTR_SPLIT(" ");
+//        weixinNodeModel.save(new SaveListener<String>() {
+//            @Override
+//            public void done(String s, BmobException e) {
+//                showToast(s);
+//            }
+//        });
+
+        //v6.6.0 1200
+        //        WeixinNodeModel weixinNodeModel = new WeixinNodeModel();
+//        weixinNodeModel.setCL_NAME_RV_UI("com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyReceiveUI");
+//        weixinNodeModel.setCL_NAME_EL_UI("com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyDetailUI");
+//        weixinNodeModel.setID_RV_BTN_OPEN("com.tencent.mm:id/c22");
+//        weixinNodeModel.setID_RV_TV_SHOWMANLE("com.tencent.mm:id/c21");
+//        weixinNodeModel.setID_RV_CLOSE("com.tencent.mm:id/bzq");
+//        weixinNodeModel.setID_EL_MONEY("com.tencent.mm:id/byf");
+//        weixinNodeModel.setID_EL_USERNAME("com.tencent.mm:id/byb");
+//        weixinNodeModel.setID_EL_TIME_TO_QIANG("com.tencent.mm:id/byv");
+//        weixinNodeModel.setID_EL_PINSHOUQI("com.tencent.mm:id/byc");
+//        weixinNodeModel.setID_EL_CLOSE("com.tencent.mm:id/hp");
+//        weixinNodeModel.setID_CHATTING_TV_ADD("com.tencent.mm:id/aa4");
+//        weixinNodeModel.setID_HO_LV_IM("com.tencent.mm:id/apb");
+//        weixinNodeModel.setID_HO_LV_IM_CONTENT("com.tencent.mm:id/apf");
+//        weixinNodeModel.setID_HO_LV_IM_NUMBER("com.tencent.mm:id/iu");
+//        weixinNodeModel.setID_CHATTING_TV_TITLE("com.tencent.mm:id/ha");
+//        weixinNodeModel.setID_HO_LV_IM_LB_WXHB("com.tencent.mm:id/adw");
+//        weixinNodeModel.setID_CHATTING_TV_BACK("com.tencent.mm:id/h_");
+//        weixinNodeModel.setCOMMEN_TEXT_INFO("com.tencent.mm [微信红包] 手慢了，红包派完了 领取红包 微信红包");
+//        weixinNodeModel.setVersionCode(1220);
+//        weixinNodeModel.setSTR_SPLIT(" ");
+//        weixinNodeModel.save(new SaveListener<String>() {
+//            @Override
+//            public void done(String s, BmobException e) {
+//                showToast(s);
+//            }
+//        });
+
+        //v6.5.23 1180
+//        WeixinNodeModel weixinNodeModel = new WeixinNodeModel();
+//        weixinNodeModel.setCL_NAME_RV_UI("com.tencent.mm.plugin.luckymoney.ui.En_fba4b94f");
+//        weixinNodeModel.setCL_NAME_EL_UI("com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyDetailUI");
+//        weixinNodeModel.setID_RV_BTN_OPEN("com.tencent.mm:id/bx4");//
+//        weixinNodeModel.setID_RV_TV_SHOWMANLE("com.tencent.mm:id/bx3");//
+//        weixinNodeModel.setID_RV_CLOSE("com.tencent.mm:id/bus");//
+//        weixinNodeModel.setID_EL_MONEY("com.tencent.mm:id/btg");//
+//        weixinNodeModel.setID_EL_USERNAME("com.tencent.mm:id/btc");//
+//        weixinNodeModel.setID_EL_TIME_TO_QIANG("com.tencent.mm:id/btx");//
+//        weixinNodeModel.setID_EL_PINSHOUQI("com.tencent.mm:id/btd");//
+//        weixinNodeModel.setID_EL_CLOSE("com.tencent.mm:id/hj");//
+//        weixinNodeModel.setID_CHATTING_TV_ADD("com.tencent.mm:id/aa6");//
+//        weixinNodeModel.setID_HO_LV_IM("com.tencent.mm:id/aoh");//
+//        weixinNodeModel.setID_HO_LV_IM_CONTENT("com.tencent.mm:id/aol");//
+//        weixinNodeModel.setID_HO_LV_IM_NUMBER("com.tencent.mm:id/io");//
+//        weixinNodeModel.setID_CHATTING_TV_TITLE("com.tencent.mm:id/h5");//
+//        weixinNodeModel.setID_HO_LV_IM_LB_WXHB("com.tencent.mm:id/ade");//
+//        weixinNodeModel.setID_CHATTING_TV_BACK("com.tencent.mm:id/h4");//
+//        weixinNodeModel.setCOMMEN_TEXT_INFO("com.tencent.mm [微信红包] 手慢了，红包派完了 领取红包 微信红包");
+//        weixinNodeModel.setVersionCode(1180);
+//        weixinNodeModel.setSTR_SPLIT(" ");
+//        weixinNodeModel.save(new SaveListener<String>() {
+//            @Override
+//            public void done(String s, BmobException e) {
+//                showToast(s);
+//            }
+//        });
+
+        //v6.5.22 1160
+//        WeixinNodeModel weixinNodeModel = new WeixinNodeModel();
+//        weixinNodeModel.setCL_NAME_RV_UI("com.tencent.mm.plugin.luckymoney.ui.En_fba4b94f");
+//        weixinNodeModel.setCL_NAME_EL_UI("com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyDetailUI");
+//        weixinNodeModel.setID_RV_BTN_OPEN("com.tencent.mm:id/bwn");//1
+//        weixinNodeModel.setID_RV_TV_SHOWMANLE("com.tencent.mm:id/bwm");//1
+//        weixinNodeModel.setID_RV_CLOSE("com.tencent.mm:id/bub");//1
+//        weixinNodeModel.setID_EL_MONEY("com.tencent.mm:id/bsz");//1
+//        weixinNodeModel.setID_EL_USERNAME("com.tencent.mm:id/bsv");//1
+//        weixinNodeModel.setID_EL_TIME_TO_QIANG("com.tencent.mm:id/bte");//1
+//        weixinNodeModel.setID_EL_PINSHOUQI("com.tencent.mm:id/bsw");//1
+//        weixinNodeModel.setID_EL_CLOSE("com.tencent.mm:id/hj");//1
+//        weixinNodeModel.setID_CHATTING_TV_ADD("com.tencent.mm:id/aa6");//1
+//        weixinNodeModel.setID_HO_LV_IM("com.tencent.mm:id/aoh");//1
+//        weixinNodeModel.setID_HO_LV_IM_CONTENT("com.tencent.mm:id/aol");//1
+//        weixinNodeModel.setID_HO_LV_IM_NUMBER("com.tencent.mm:id/io");//1
+//        weixinNodeModel.setID_CHATTING_TV_TITLE("com.tencent.mm:id/h5");//1
+//        weixinNodeModel.setID_HO_LV_IM_LB_WXHB("com.tencent.mm:id/ade");//1
+//        weixinNodeModel.setID_CHATTING_TV_BACK("com.tencent.mm:id/h4");//1
+//        weixinNodeModel.setCOMMEN_TEXT_INFO("com.tencent.mm [微信红包] 手慢了，红包派完了 领取红包 微信红包");
+//        weixinNodeModel.setVersionCode(1160);
+//        weixinNodeModel.setSTR_SPLIT(" ");
+//        weixinNodeModel.save(new SaveListener<String>() {
+//            @Override
+//            public void done(String s, BmobException e) {
+//                showToast(s);
+//            }
+//        });
+
+        //v6.5.19 1140
+//        WeixinNodeModel weixinNodeModel = new WeixinNodeModel();
+//        weixinNodeModel.setCL_NAME_RV_UI("com.tencent.mm.plugin.luckymoney.ui.En_fba4b94f");
+//        weixinNodeModel.setCL_NAME_EL_UI("com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyDetailUI");
+//        weixinNodeModel.setID_RV_BTN_OPEN("com.tencent.mm:id/bv8");//12
+//        weixinNodeModel.setID_RV_TV_SHOWMANLE("com.tencent.mm:id/bv7");//12
+//        weixinNodeModel.setID_RV_CLOSE("com.tencent.mm:id/bsv");//12
+//        weixinNodeModel.setID_EL_MONEY("com.tencent.mm:id/brj");//12
+//        weixinNodeModel.setID_EL_USERNAME("com.tencent.mm:id/brf");//12
+//        weixinNodeModel.setID_EL_TIME_TO_QIANG("com.tencent.mm:id/brz");//12
+//        weixinNodeModel.setID_EL_PINSHOUQI("com.tencent.mm:id/brg");//12
+//        weixinNodeModel.setID_EL_CLOSE("com.tencent.mm:id/hg");//12
+//        weixinNodeModel.setID_CHATTING_TV_ADD("com.tencent.mm:id/a9t");//12
+//        weixinNodeModel.setID_HO_LV_IM("com.tencent.mm:id/an5");//12
+//        weixinNodeModel.setID_HO_LV_IM_CONTENT("com.tencent.mm:id/an9");//12
+//        weixinNodeModel.setID_HO_LV_IM_NUMBER("com.tencent.mm:id/il");//12
+//        weixinNodeModel.setID_CHATTING_TV_TITLE("com.tencent.mm:id/h2");//12
+//        weixinNodeModel.setID_HO_LV_IM_LB_WXHB("com.tencent.mm:id/ac2");//12
+//        weixinNodeModel.setID_CHATTING_TV_BACK("com.tencent.mm:id/h1");//12
+//        weixinNodeModel.setCOMMEN_TEXT_INFO("com.tencent.mm [微信红包] 手慢了，红包派完了 领取红包 微信红包");
+//        weixinNodeModel.setVersionCode(1140);
+//        weixinNodeModel.setSTR_SPLIT(" ");
+//        weixinNodeModel.save(new SaveListener<String>() {
+//            @Override
+//            public void done(String s, BmobException e) {
+//                showToast(s);
+//            }
+//        });
+
+//        //v6.5.16 1120
+//        WeixinNodeModel weixinNodeModel = new WeixinNodeModel();
+//        weixinNodeModel.setCL_NAME_RV_UI("com.tencent.mm.plugin.luckymoney.ui.En_fba4b94f");
+//        weixinNodeModel.setCL_NAME_EL_UI("com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyDetailUI");
+//        weixinNodeModel.setID_RV_BTN_OPEN("com.tencent.mm:id/brt");//123
+//        weixinNodeModel.setID_RV_TV_SHOWMANLE("com.tencent.mm:id/brs");//123
+//        weixinNodeModel.setID_RV_CLOSE("com.tencent.mm:id/bph");//123
+//        weixinNodeModel.setID_EL_MONEY("com.tencent.mm:id/bo6");//123
+//        weixinNodeModel.setID_EL_USERNAME("com.tencent.mm:id/bo2");//123
+//        weixinNodeModel.setID_EL_TIME_TO_QIANG("com.tencent.mm:id/bol");//123
+//        weixinNodeModel.setID_EL_PINSHOUQI("com.tencent.mm:id/bo3");//123
+//        weixinNodeModel.setID_EL_CLOSE("com.tencent.mm:id/hg");//123
+//        weixinNodeModel.setID_CHATTING_TV_ADD("com.tencent.mm:id/a76");//123
+//        weixinNodeModel.setID_HO_LV_IM("com.tencent.mm:id/ajz");//123
+//        weixinNodeModel.setID_HO_LV_IM_CONTENT("com.tencent.mm:id/ak3");//123
+//        weixinNodeModel.setID_HO_LV_IM_NUMBER("com.tencent.mm:id/il");//123
+//        weixinNodeModel.setID_CHATTING_TV_TITLE("com.tencent.mm:id/h2");//123
+//        weixinNodeModel.setID_HO_LV_IM_LB_WXHB("com.tencent.mm:id/a_c");//123
+//        weixinNodeModel.setID_CHATTING_TV_BACK("com.tencent.mm:id/h1");//123
+//        weixinNodeModel.setCOMMEN_TEXT_INFO("com.tencent.mm [微信红包] 手慢了，红包派完了 领取红包 微信红包");
+//        weixinNodeModel.setVersionCode(1120);
+//        weixinNodeModel.setSTR_SPLIT(" ");
+//        weixinNodeModel.save(new SaveListener<String>() {
+//            @Override
+//            public void done(String s, BmobException e) {
+//                showToast(s);
+//            }
+//        });
+
+        //v6.5.13 1100
+//        WeixinNodeModel weixinNodeModel = new WeixinNodeModel();
+//        weixinNodeModel.setCL_NAME_RV_UI("com.tencent.mm.plugin.luckymoney.ui.En_fba4b94f");
+//        weixinNodeModel.setCL_NAME_EL_UI("com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyDetailUI");
+//        weixinNodeModel.setID_RV_BTN_OPEN("com.tencent.mm:id/bp6");//1234
+//        weixinNodeModel.setID_RV_TV_SHOWMANLE("com.tencent.mm:id/bp5");//1234
+//        weixinNodeModel.setID_RV_CLOSE("com.tencent.mm:id/bmu");//1234
+//        weixinNodeModel.setID_EL_MONEY("com.tencent.mm:id/bli");//1234
+//        weixinNodeModel.setID_EL_USERNAME("com.tencent.mm:id/ble");//1234
+//        weixinNodeModel.setID_EL_TIME_TO_QIANG("com.tencent.mm:id/bly");//1234
+//        weixinNodeModel.setID_EL_PINSHOUQI("com.tencent.mm:id/blf");//1234
+//        weixinNodeModel.setID_EL_CLOSE("com.tencent.mm:id/hd");//1234
+//        weixinNodeModel.setID_CHATTING_TV_ADD("com.tencent.mm:id/a6l");//1234
+//        weixinNodeModel.setID_HO_LV_IM("com.tencent.mm:id/aja");//1234
+//        weixinNodeModel.setID_HO_LV_IM_CONTENT("com.tencent.mm:id/aje");//1234
+//        weixinNodeModel.setID_HO_LV_IM_NUMBER("com.tencent.mm:id/ie");//1234
+//        weixinNodeModel.setID_CHATTING_TV_TITLE("com.tencent.mm:id/gz");//1234
+//        weixinNodeModel.setID_HO_LV_IM_LB_WXHB("com.tencent.mm:id/a9r");//1234
+//        weixinNodeModel.setID_CHATTING_TV_BACK("com.tencent.mm:id/gy");//1234
+//        weixinNodeModel.setCOMMEN_TEXT_INFO("com.tencent.mm [微信红包] 手慢了，红包派完了 领取红包 微信红包");
+//        weixinNodeModel.setVersionCode(1100);
+//        weixinNodeModel.setSTR_SPLIT(" ");
+//        weixinNodeModel.save(new SaveListener<String>() {
+//            @Override
+//            public void done(String s, BmobException e) {
+//                showToast(s);
+//            }
+//        });
+
+        //v6.5.10 1080
+//        WeixinNodeModel weixinNodeModel = new WeixinNodeModel();
+//        weixinNodeModel.setCL_NAME_RV_UI("com.tencent.mm.plugin.luckymoney.ui.En_fba4b94f");
+//        weixinNodeModel.setCL_NAME_EL_UI("com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyDetailUI");
+//        weixinNodeModel.setID_RV_BTN_OPEN("com.tencent.mm:id/bnr");//12345
+//        weixinNodeModel.setID_RV_TV_SHOWMANLE("com.tencent.mm:id/bnq");//12345
+//        weixinNodeModel.setID_RV_CLOSE("com.tencent.mm:id/blh");//12345
+//        weixinNodeModel.setID_EL_MONEY("com.tencent.mm:id/bk6");//12345
+//        weixinNodeModel.setID_EL_USERNAME("com.tencent.mm:id/bk2");//12345
+//        weixinNodeModel.setID_EL_TIME_TO_QIANG("com.tencent.mm:id/bkl");//12345
+//        weixinNodeModel.setID_EL_PINSHOUQI("com.tencent.mm:id/bk3");//12345
+//        weixinNodeModel.setID_EL_CLOSE("com.tencent.mm:id/h7");//12345
+//        weixinNodeModel.setID_CHATTING_TV_ADD("com.tencent.mm:id/a5j");//12345
+//        weixinNodeModel.setID_HO_LV_IM("com.tencent.mm:id/aie");//12345
+//        weixinNodeModel.setID_HO_LV_IM_CONTENT("com.tencent.mm:id/aii");//12345
+//        weixinNodeModel.setID_HO_LV_IM_NUMBER("com.tencent.mm:id/i8");//12345
+//        weixinNodeModel.setID_CHATTING_TV_TITLE("com.tencent.mm:id/gs");//12345
+//        weixinNodeModel.setID_HO_LV_IM_LB_WXHB("com.tencent.mm:id/a8i");//12345
+//        weixinNodeModel.setID_CHATTING_TV_BACK("com.tencent.mm:id/gr");//12345
+//        weixinNodeModel.setCOMMEN_TEXT_INFO("com.tencent.mm [微信红包] 手慢了，红包派完了 领取红包 微信红包");
+//        weixinNodeModel.setVersionCode(1080);
 //        weixinNodeModel.setSTR_SPLIT(" ");
 //        weixinNodeModel.save(new SaveListener<String>() {
 //            @Override
@@ -190,15 +418,22 @@ public class MainActivity extends BaseActivity {
                             }
                         }
                         if ( !flag ) {
-                            showToast("您当前的微信版本太低,请升级到最新版本");
+                            showCusDialog("您的微信版本太低了，目前最低适配到微信2017年08月21日发布的V6.5.13版本，请更新您的微信", false);
+                            KV.put(LocalStorageKeys.WEIXINNODEMODEL_SINGLE, null);
                         }
                     }
                 } else {
-                    showToast("请求超时,请稍后再试");
+                    if ( retryNums < 3 ) {
+                        //重新加载一次
+                        retryNums++;
+                        getPeizhi();
+                    }
                 }
             }
         });
     }
+
+    private int retryNums;
 
     private void addData() {
         if ( cusUser != null ) {
@@ -221,10 +456,7 @@ public class MainActivity extends BaseActivity {
             });
 
             //如果配置文件没有加载成功 则重新加载
-            WeixinNodeModel weixinNodeModel = KV.get(LocalStorageKeys.WEIXINNODEMODEL_SINGLE);
-            if ( weixinNodeModel == null ) {
-                getPeizhi();
-            }
+            getPeizhi();
         }
     }
 

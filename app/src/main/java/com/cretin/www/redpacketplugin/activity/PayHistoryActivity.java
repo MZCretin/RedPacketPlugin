@@ -145,7 +145,7 @@ public class PayHistoryActivity extends BaseActivity {
         query.include("payTypeModel");
         query.addWhereEqualTo("authirUserId", cusUser.getObjectId());
         query.setLimit(10);
-        query.setSkip(page);
+        query.setSkip(page * 10);
         query.order("-createdAt");
         query.findObjects(new FindListener<PayDetailModel>() {
             @Override

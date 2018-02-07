@@ -92,6 +92,7 @@ public class PackageAccessibilityService extends AccessibilityService {
                 } else {
                     //未过期 放行
                 }
+
                 //将事件放行至下一个环节
                 for ( AccessbilityJob job : mJobs ) {
                     if ( pkn.equals(job.getTargetPackageName()) && job.isEnable() ) {

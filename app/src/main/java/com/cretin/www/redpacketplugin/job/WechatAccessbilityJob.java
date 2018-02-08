@@ -482,7 +482,6 @@ public class WechatAccessbilityJob extends BaseAccessbilityJob {
                     if ( titleNodes.isEmpty() ) {
                         //判断不了
                         chatType = 2;
-                        Toast.makeText(getService(), "系统不支持判断聊天类型", Toast.LENGTH_SHORT).show();
                     } else {
                         String title = titleNodes.get(0).getText().toString();
                         if ( !TextUtils.isEmpty(title) ) {

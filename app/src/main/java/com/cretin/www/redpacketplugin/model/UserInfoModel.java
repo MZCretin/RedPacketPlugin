@@ -26,7 +26,7 @@ public class UserInfoModel extends BmobObject{
     private int tongzhiState;
     //提示音和震动状态 0 关闭 1 开启
     private int tishiyinState;
-    //模式选择 0 未选择 1 自动抢 单聊 2 自动抢 群聊 3 自动抢 all 4 通知 all 5 通知 单聊 6 通知 群聊
+    //模式选择 0 未选择 1 自动抢 单聊 2 自动抢 群聊 3 自动抢 all 4 通知 仅仅打开红包页面
     private int modeState;
     //模式描述
     private String modeStateValue;

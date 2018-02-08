@@ -1,13 +1,17 @@
 package com.cretin.www.redpacketplugin.activity;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -112,7 +116,26 @@ public class PayActivity extends BaseActivity {
     //展示数据
     private void showData(final PayTypeModel payTypeModel) {
         mPayTypeModel = payTypeModel;
-        Picasso.with(this).load(payTypeModel.getPayPicUrl()).into(ivPic);
+        if ( !TextUtils.isEmpty(payTypeModel.getPayPicUrl()) ) {
+            Picasso.with(this).load(payTypeModel.getPayPicUrl()).into(ivPic);
+            ViewTreeObserver vto = ivPic.getViewTreeObserver();
+            vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @TargetApi( Build.VERSION_CODES.KITKAT )
+                @Override
+                public void onGlobalLayout() {
+                    ivPic.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                    int width = ivPic.getMeasuredWidth();
+                    int w = Integer.parseInt(payTypeModel.getW_h().split("_")[0]);
+                    int h = Integer.parseInt(payTypeModel.getW_h().split("_")[1]);
+                    int height = ( int ) ((( float ) h * width) / w);
+                    ViewGroup.LayoutParams layoutParams =
+                            ivPic.getLayoutParams();
+                    layoutParams.height = height;
+                    layoutParams.width = width;
+                    ivPic.setLayoutParams(layoutParams);
+                }
+            });
+        }
 
         tvTaocan.setText(payTypeModel.getComboTypeValue());
 
@@ -164,13 +187,13 @@ public class PayActivity extends BaseActivity {
         String payCode = etDingdan.getText().toString().trim();
         if ( mPayTypeModel.getPayType() == 1 ) {
             //支付宝
-            if(payCode.length() != 28){
+            if ( payCode.length() != 28 ) {
                 showToast("支付宝订单号长度为28位,请检查");
                 return;
             }
         } else {
             //微信
-            if(payCode.length() !=36){
+            if ( payCode.length() != 36 ) {
                 showToast("微信订单号长度为36位,请检查");
                 return;
             }

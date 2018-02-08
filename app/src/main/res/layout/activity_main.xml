@@ -2,8 +2,8 @@
 <android.support.v4.widget.SwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/swip_refresh"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context="com.cretin.www.redpacketplugin.activity.MainActivity">
@@ -388,10 +388,120 @@
                     android:textSize="@dimen/text_size_14"/>
             </LinearLayout>
 
+            <include layout="@layout/lined8"/>
+
+            <LinearLayout
+                android:id="@+id/ll_shijian"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/item_bg_selector"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_xiumian_shiijan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/item_bg_selector"
+                        android:drawablePadding="10dp"
+                        android:gravity="center_vertical"
+                        android:paddingBottom="2dp"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="12dp"
+                        android:text="设置休眠时间"
+                        android:textColor="@color/font_black1"
+                        android:textSize="@dimen/text_size_16"/>
+
+                    <TextView
+                        android:id="@+id/tv_shijian_des"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:paddingBottom="16dp"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="10dp"
+                        android:text="锁屏会影响助手自动抢红包，建议将休眠时间设置最大值"
+                        android:textColor="@color/font_black4"
+                        android:textSize="@dimen/text_size_12"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@mipmap/arrow_right"
+                    android:gravity="center"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/font_black4"
+                    android:textSize="@dimen/text_size_14"/>
+            </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:background="@color/app_bg_color"/>
+
+            <LinearLayout
+                android:id="@+id/ll_yaoqing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/item_bg_selector"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/item_bg_selector"
+                        android:drawablePadding="10dp"
+                        android:gravity="center_vertical"
+                        android:paddingBottom="2dp"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="12dp"
+                        android:text="邀请好友"
+                        android:textColor="@color/font_black1"
+                        android:textSize="@dimen/text_size_16"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:paddingBottom="16dp"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="10dp"
+                        android:text="成功邀请一个好友注册，即可获取一天免费体验时长，多邀多得"
+                        android:textColor="@color/font_black4"
+                        android:textSize="@dimen/text_size_12"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@mipmap/arrow_right"
+                    android:gravity="center"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/font_black4"
+                    android:textSize="@dimen/text_size_14"/>
+            </LinearLayout>
+
+            <include layout="@layout/lined8"/>
 
             <LinearLayout
                 android:id="@+id/ll_shuoming"

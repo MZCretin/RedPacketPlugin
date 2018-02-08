@@ -14,4 +14,6 @@ public class LocalStorageKeys {
     public static final String WEIXINNODEMODEL_LIST = "WEIXINNODEMODEL_LIST";
     //当前匹配微信节点配置
     public static final String WEIXINNODEMODEL_SINGLE = "WEIXINNODEMODEL_SINGLE";
+    //全局是否登录判断
+    public static final String QUANJU_LOGIN_STATE = "QUANJU_LOGIN_STATE";
 }

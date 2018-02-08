@@ -73,31 +73,33 @@ public class PackageAccessibilityService extends AccessibilityService {
     @TargetApi( Build.VERSION_CODES.JELLY_BEAN_MR2 )
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
-        Log.e(TAG, "onAccessibilityEvent");
-        String pkn = String.valueOf(event.getPackageName());
-        CusUser cusUser = KV.get(LocalStorageKeys.USER_INFO);
-        if ( cusUser != null ) {
-            UserInfoModel userInfoModel = cusUser.getUserInfoModel();
-            if ( userInfoModel != null ) {
-                int leftDay = userInfoModel.getLeftDays();
-                String createdAt = cusUser.getCreatedAt();
-                //            2018-02-01 14:38:45
-                //计算截止时间
-                String endlineTimeStr = CommonUtils.plusDay(leftDay, createdAt);
+        //只有已登录才能使用
+        if ( KV.get(LocalStorageKeys.QUANJU_LOGIN_STATE, false) ) {
+            String pkn = String.valueOf(event.getPackageName());
+            CusUser cusUser = KV.get(LocalStorageKeys.USER_INFO);
+            if ( cusUser != null ) {
+                UserInfoModel userInfoModel = cusUser.getUserInfoModel();
+                if ( userInfoModel != null ) {
+                    int leftDay = userInfoModel.getLeftDays();
+                    String createdAt = cusUser.getCreatedAt();
+                    //            2018-02-01 14:38:45
+                    //计算截止时间
+                    String endlineTimeStr = CommonUtils.plusDay(leftDay, createdAt);
 
-                if ( CommonUtils.isBeforeToday(endlineTimeStr) ) {
-                    //已过期
-                    EventBus.getDefault().post(new NotifyVipHasDied());
-                    return;
-                } else {
-                    //未过期 放行
-                }
+                    if ( CommonUtils.isBeforeToday(endlineTimeStr) ) {
+                        //已过期
+                        EventBus.getDefault().post(new NotifyVipHasDied());
+                        return;
+                    } else {
+                        //未过期 放行
+                    }
 
-                //将事件放行至下一个环节
-                for ( AccessbilityJob job : mJobs ) {
-                    if ( pkn.equals(job.getTargetPackageName()) && job.isEnable() ) {
-                        job.onReceiveJob(event, cusUser);
-                        break;
+                    //将事件放行至下一个环节
+                    for ( AccessbilityJob job : mJobs ) {
+                        if ( pkn.equals(job.getTargetPackageName()) && job.isEnable() ) {
+                            job.onReceiveJob(event, cusUser);
+                            break;
+                        }
                     }
                 }
             }

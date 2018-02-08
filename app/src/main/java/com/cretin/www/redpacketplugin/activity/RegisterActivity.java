@@ -22,6 +22,7 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 public class RegisterActivity extends BaseActivity implements View.OnClickListener {
     private com.cretin.www.clearedittext.view.ClearEditText mEd_username;
@@ -160,7 +161,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         final String password = mEd_password.getText().toString();
         String password1 = mEd_password_confirm.getText().toString();
         final String code = mEd_code.getText().toString();
-        String inviteCode = mEd_invite_code.getText().toString();
+        final String inviteCode = mEd_invite_code.getText().toString();
         if ( TextUtils.isEmpty(phone) ) {
             showToast("手机号不能为空");
             return;
@@ -182,36 +183,53 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             //检查邀请码
             BmobQuery<CusUser> query = new BmobQuery<>();
             query.addWhereEqualTo("inviteCode", inviteCode);
+            query.include("userInfoModel");
             query.findObjects(new FindListener<CusUser>() {
                 @Override
-                public void done(List<CusUser> object, BmobException e) {
+                public void done(final List<CusUser> object, BmobException e) {
                     if ( e == null ) {
                         if ( object.isEmpty() ) {
                             stopDialog();
                             showToast("该邀请码不存在，请检查后重试");
                         } else {
                             //可以去注册
-                            final UserInfoModel userInfoModel = new UserInfoModel();
-                            userInfoModel.setInvitedUser(object.get(0));
-                            userInfoModel.setAllMoney(0);
-                            userInfoModel.setInviteList(null);
-                            //默认一天时间
-                            userInfoModel.setLeftDays(1);
-                            userInfoModel.setPackageNums(0);
-                            userInfoModel.setModeState(0);
-                            userInfoModel.setModeStateValue("当前未选择");
-                            userInfoModel.setVipLevel(0);
-                            userInfoModel.save(new SaveListener<String>() {
-
+                            UserInfoModel invited = object.get(0).getUserInfoModel();
+                            invited.setLeftDays(invited.getLeftDays() + 1);
+                            invited.update(new UpdateListener() {
                                 @Override
-                                public void done(String objectId, BmobException e) {
+                                public void done(BmobException e) {
                                     if ( e == null ) {
-                                        doRegister(phone, password, code, userInfoModel);
+                                        //可注册
+                                        final UserInfoModel userInfoModel = new UserInfoModel();
+                                        userInfoModel.setInvitedUser(object.get(0));
+                                        userInfoModel.setAllMoney(0);
+                                        userInfoModel.setInviteList(null);
+                                        //默认一天时间
+                                        userInfoModel.setLeftDays(1);
+                                        userInfoModel.setPackageNums(0);
+                                        userInfoModel.setModeState(4);
+                                        userInfoModel.setModeStateValue("仅打开红包页面（手动抢）");
+                                        userInfoModel.setVipLevel(0);
+                                        userInfoModel.save(new SaveListener<String>() {
+
+                                            @Override
+                                            public void done(String objectId, BmobException e) {
+                                                if ( e == null ) {
+                                                    doRegister(object.get(0).getObjectId(), phone, password, code, userInfoModel);
+                                                } else {
+                                                    stopDialog();
+                                                    showToast("注册失败,稍后再试");
+                                                }
+                                            }
+                                        });
                                     } else {
+                                        //不可注册
+                                        stopDialog();
                                         showToast("注册失败,稍后再试");
                                     }
                                 }
                             });
+
                         }
                     } else {
                         stopDialog();
@@ -236,19 +254,22 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void done(String objectId, BmobException e) {
                 if ( e == null ) {
-                    doRegister(phone, password, code, userInfoModel);
+                    doRegister("", phone, password, code, userInfoModel);
                 } else {
+                    stopDialog();
                     showToast("注册失败,稍后再试");
                 }
             }
         });
     }
 
-    private void doRegister(String phone, String password, String code, UserInfoModel userInfoModel) {
+    private void doRegister(String userId, String phone, String password, String code, UserInfoModel userInfoModel) {
         //用手机号进行注册
         CusUser user = new CusUser();
         user.setMobilePhoneNumber(phone);//设置手机号码（必填）
         user.setPassword(password);
+        //被邀请的用户id
+        user.setInvitedUserId(userId);
         //设置邀请码
         user.setInviteCode(CommonUtils.getInviteCode());
         if ( userInfoModel != null )

@@ -3,6 +3,7 @@ package com.cretin.www.redpacketplugin.activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -12,6 +13,7 @@ import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,9 +21,12 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.cretin.www.redpacketplugin.R;
+import com.cretin.www.redpacketplugin.base.BaseApplication;
 import com.cretin.www.redpacketplugin.config.eventbus.NotifyDataNotPrepare;
 import com.cretin.www.redpacketplugin.config.eventbus.NotifyDataNotPreparedSuccess;
+import com.cretin.www.redpacketplugin.config.eventbus.NotifyForceExit;
 import com.cretin.www.redpacketplugin.config.eventbus.NotifyOnActivityStop;
+import com.cretin.www.redpacketplugin.config.eventbus.NotifySetSllepTime;
 import com.cretin.www.redpacketplugin.config.eventbus.NotifyVipHasDied;
 import com.cretin.www.redpacketplugin.model.CusUser;
 import com.cretin.www.redpacketplugin.model.RedPackageInfoModel;
@@ -70,6 +75,8 @@ public class MainActivity extends BaseActivity {
     TextView tvState;
     @BindView( R.id.tv_open )
     TextView tvOpen;
+    @BindView( R.id.tv_xiumian_shiijan )
+    TextView tvXiuMianShiJian;
     @BindView( R.id.tv_vip_des )
     TextView tvVipDes;
     @BindView( R.id.ll_vip )
@@ -86,6 +93,10 @@ public class MainActivity extends BaseActivity {
     LinearLayout llShuoming;
     @BindView( R.id.ll_log )
     LinearLayout llLog;
+    @BindView( R.id.ll_yaoqing )
+    LinearLayout llYaoqing;
+    @BindView( R.id.ll_shijian )
+    LinearLayout llShijian;
     public static final String TAG = "MainActivity";
     @BindView( R.id.swip_refresh )
     SwipeRefreshLayout swipRefresh;
@@ -127,6 +138,45 @@ public class MainActivity extends BaseActivity {
                 setInfo();
             }
         });
+
+        //处理ToggleButton显示不正常
+        if ( Build.VERSION.SDK_INT <= 19 ) {
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.setMargins(0, 0, 0, 0);
+            tbNotification.setLayoutParams(params);
+            tbYinxiao.setLayoutParams(params);
+        }
+
+        findSystemSleepTime();
+
+//        VersionUpdateModel model = new VersionUpdateModel();
+//        model.setDownurl("http://jokesimg.cretinzp.com/apk/app-release_131_jiagu_sign.apk");
+//        model.setSize("15688259");
+//        model.setHasAffectCodes("1|2|3|4|5|6|7|8|9|10");
+//        model.setUpdateLog("最新版v1.3.1\n1、新增评论回复功能，沟通更尽兴\n2、新增评论点赞功能，速速点赞\n3、优化N多你可能都不知道的细节\n4、为了更好的体验，推荐更新");
+//        model.setIsForceUpdate(0);
+//        model.setVersionCode(11);
+//        model.setVersionName("v1.3.1");
+//        model.setPreBaselineCode(10);
+//        model.save(new SaveListener<String>() {
+//            @Override
+//            public void done(String s, BmobException e) {
+//                showToast(s);
+//            }
+//        });
+
+//        UserExplainModel model1 = new UserExplainModel();
+//        model1.setDesc("sss");
+//        model1.setPicUrl("sss");
+//        model1.setSetp(1);
+//        model1.save(new SaveListener<String>() {
+//            @Override
+//            public void done(String s, BmobException e) {
+//
+//            }
+//        });
+
 
         //v6.6.2 1240
 //        WeixinNodeModel weixinNodeModel = new WeixinNodeModel();
@@ -389,7 +439,6 @@ public class MainActivity extends BaseActivity {
 //            }
 //        });
     }
-
 
     //获取配置文件
     private void getPeizhi() {
@@ -680,7 +729,7 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    @OnClick( {R.id.iv_level, R.id.tv_user_des, R.id.tv_open, R.id.ll_vip, R.id.ll_mode, R.id.ll_shuoming, R.id.ll_log} )
+    @OnClick( {R.id.iv_level, R.id.tv_user_des, R.id.tv_open, R.id.ll_vip, R.id.ll_shijian, R.id.ll_mode, R.id.ll_yaoqing, R.id.ll_shuoming, R.id.ll_log} )
     public void onViewClicked(View view) {
         switch ( view.getId() ) {
             case R.id.iv_level:
@@ -717,13 +766,20 @@ public class MainActivity extends BaseActivity {
             case R.id.ll_vip:
                 startActivity(new Intent(this, VipInfoActivity.class));
                 break;
+            case R.id.ll_shijian:
+                startActivity(new Intent(this, SetSleepTimeActivity.class));
+                break;
             case R.id.ll_mode:
                 startActivity(new Intent(this, SelectModeActivity.class));
                 break;
             case R.id.ll_log:
                 startActivity(new Intent(this, RedPackageLogActivity.class));
                 break;
+            case R.id.ll_yaoqing:
+                startActivity(new Intent(this, InviteActivity.class));
+                break;
             case R.id.ll_shuoming:
+                startActivity(new Intent(this, UserExplainActivity.class));
                 break;
         }
     }
@@ -822,21 +878,23 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    private long lastBackTime;
-
     //在需要监听的activity中重写onKeyDown()。
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ( keyCode == KeyEvent.KEYCODE_BACK
                 && event.getRepeatCount() == 0 ) {
-            long currentTime = System.currentTimeMillis();
-            if ( currentTime - lastBackTime > 1 * 1000 ) {
-                lastBackTime = currentTime;
-                showToast("再按一次退出程序");
-            } else {
-                NotifyOnActivityStop stop = new NotifyOnActivityStop();
-                EventBus.getDefault().post(stop);
-                MainActivity.this.finish();
-            }
+            final AlertDialog dialog = new AlertDialog(this);
+            dialog.setOnClickListener(new AlertDialog.OnPositiveClickListener() {
+                @Override
+                public void onPositiveClickListener(View v) {
+                    dialog.dismiss();
+                    NotifyOnActivityStop stop = new NotifyOnActivityStop();
+                    KV.put(LocalStorageKeys.QUANJU_LOGIN_STATE, false);
+                    EventBus.getDefault().post(stop);
+                    MainActivity.this.finish();
+                }
+            });
+            dialog.show();
+            dialog.setMessage("是否退出？退出将不能继续自动抢红包");
             return true;
         }
         return super.onKeyDown(keyCode, event);
@@ -852,5 +910,58 @@ public class MainActivity extends BaseActivity {
     public void notifyDataNotPrepare(NotifyDataNotPrepare event) {
         //数据未正常加载
         getPeizhi();
+    }
+
+    @Subscribe
+    public void notifyForceExit(NotifyForceExit event) {
+        //清除登录状态
+        KV.put(LocalStorageKeys.QUANJU_LOGIN_STATE, false);
+        //退回登录页面
+        Intent intent = new Intent(BaseApplication.getBaseApplication(), LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("type", "showdialog");
+        startActivity(intent);
+    }
+    @Subscribe
+    public void notifySetSllepTime(NotifySetSllepTime event) {
+        findSystemSleepTime();
+    }
+
+
+    //获取系统的休眠时间
+    private void findSystemSleepTime() {
+        if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ) {
+            // 判断是否有WRITE_SETTINGS权限
+            if ( Settings.System.canWrite(this) ) {
+                setSleepTime();
+            }
+        } else {
+            setSleepTime();
+        }
+    }
+
+    //设置休眠时间到页面上
+    private void setSleepTime() {
+        int time = getScreenOffTime();
+        if ( time / 1000 % 60 != 0 ) {
+            //秒
+            tvXiuMianShiJian.setText("设置休眠时间(" + (time / 1000) + "秒后休眠)");
+        } else {
+            //分
+            tvXiuMianShiJian.setText("设置休眠时间(" + (time / 1000 / 60) + "分钟后休眠)");
+        }
+    }
+
+    //获取系统休眠时间
+    private int getScreenOffTime() {
+        int screenOffTime = 0;
+        try {
+            screenOffTime = Settings.System.getInt(getContentResolver(),
+                    Settings.System.SCREEN_OFF_TIMEOUT);
+        } catch ( Exception localException ) {
+
+        }
+        return screenOffTime;
     }
 }

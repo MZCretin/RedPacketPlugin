@@ -21,6 +21,16 @@ public class PayTypeModel extends BmobObject {
     private String moneyDes;
     //支付下标 1 支付宝 周卡 2 支付宝 月卡 3 支付宝 年费 4 微信 周卡 5 微信 月卡 6 微信 年费
     private int payIndex;
+    //图片的宽和高
+    private String w_h;
+
+    public String getW_h() {
+        return w_h;
+    }
+
+    public void setW_h(String w_h) {
+        this.w_h = w_h;
+    }
 
     public int getPayIndex() {
         return payIndex;

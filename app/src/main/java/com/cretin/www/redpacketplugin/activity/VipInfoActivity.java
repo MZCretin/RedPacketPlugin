@@ -114,7 +114,7 @@ public class VipInfoActivity extends BaseActivity {
             if ( CommonUtils.isBeforeToday(endlineTimeStr) ) {
                 //已过期
                 tvMainDes.setTextColor(getResources().getColor(R.color.red_ef0000));
-                tvMainDes.setText("尊敬的会员，您的会员已于" + endlineTimeStr + "过期，如需继续尊享自动抢红包的服务，请立即续费会员");
+                tvMainDes.setText("尊敬的会员，您的会员已于" + endlineTimeStr + "过期，如需继续尊享自动抢红包的服务，请立即续费会员或在首页邀请好友获得更多时长");
             } else {
                 //未过期 计算时间
                 //计算还剩多少天
@@ -125,7 +125,7 @@ public class VipInfoActivity extends BaseActivity {
                 int minute = ( int ) (tempTime / 1000 / 60 % 60);
                 tvMainDes.setTextColor(getResources().getColor(R.color.green_status));
                 tvMainDes.setText(tvUserDes.getText().toString() + "，您的会员有效期还剩下" + (day < 10 ? ("0" + day) : day) + "天" + (hour < 10 ? ("0" + hour) : hour) + "小时" +
-                        (minute < 10 ? ("0" + minute) : minute) + "分钟" + "，如需增加时长，可续费会员");
+                        (minute < 10 ? ("0" + minute) : minute) + "分钟" + "，如需增加时长，可续费会员或在首页邀请好友获得更多时长");
             }
         }
     }

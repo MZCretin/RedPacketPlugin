@@ -106,7 +106,7 @@ public class RedPackageLogActivity extends BaseActivity {
         recyclerview.setHasFixedSize(true);
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
         recyclerview.addItemDecoration(new ItemButtomDecoration(this, 1));
-        adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
+        adapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
         adapter.isFirstOnly(true);
         adapter.setNotDoAnimationCount(3);
         swipRefresh.setColorSchemeResources(

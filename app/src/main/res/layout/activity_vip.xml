@@ -216,7 +216,7 @@
                 <ImageView
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:src="@mipmap/weixin"/>
+                    android:src="@mipmap/weixin_zhifu"/>
 
                 <TextView
                     android:layout_width="match_parent"

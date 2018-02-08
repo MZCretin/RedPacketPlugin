@@ -1,24 +1,50 @@
 apply plugin: 'com.android.application'
 android {
+    signingConfigs {
+        release {
+            keyAlias 'Cretin'
+            keyPassword 'cretin'
+            storeFile file('/Users/cretin/DemoArea/RedPacketPlugin/info/red.jks')
+            storePassword 'cretin'
+        }
+    }
     dexOptions {
         incremental true
         javaMaxHeapSize "2048M"
         preDexLibraries = false
     }
-
     compileSdkVersion 26
     buildToolsVersion "26.0.2"
-
     defaultConfig {
         applicationId "com.cretin.www.redpacketplugin"
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
-    }
 
+        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "umeng"]
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+            ndk {
+                abiFilters "armeabi", "armeabi-v7a", "x86"
+//                        "arm64-v8a", "mips", "mips64", "x86_64"
+            }
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+
+            ndk {
+                abiFilters "armeabi", "armeabi-v7a", "x86"
+//                        "arm64-v8a", "mips", "mips64", "x86_64"
+            }
+        }
+    }
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
@@ -31,7 +57,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'org.greenrobot:eventbus:3.0.0'
-    compile('cn.bmob.android:bmob-sdk:3.5.0') {
+    compile('cn.bmob.android:bmob-sdk:3.5.7') {
         exclude module: 'gson'
     }
     compile('com.orhanobut:hawk:2.0.1') {
@@ -45,4 +71,14 @@ dependencies {
     compile 'com.jakewharton:butterknife-compiler:8.5.1'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
     compile 'com.android.support:design:26.1.0'
+    compile 'com.github.MZCretin:AutoUpdateProject:v1.1.8'
+    compile files('libs/SocialSDK_QQ_Simplify.jar')
+    compile files('libs/SocialSDK_Sina_Simplify.jar')
+    compile files('libs/SocialSDK_WeChat_Simplify.jar')
+    compile files('libs/umeng-analytics-7.4.0.jar')
+    compile files('libs/umeng-common-1.4.0.jar')
+    compile files('libs/umeng_social_api.jar')
+    compile files('libs/umeng_social_net.jar')
+    compile files('libs/umeng_social_shareview.jar')
+    compile files('libs/umeng_social_tool.jar')
 }

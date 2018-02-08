@@ -7,9 +7,9 @@
     <include layout="@layout/title_layout"/>
 
     <LinearLayout
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:background="@color/white"
         android:orientation="vertical">
 
@@ -38,45 +38,6 @@
                 android:inputType="number"
                 android:textColor="#4a4a4a"
                 android:textSize="@dimen/text_size_14"/>
-        </LinearLayout>
-
-        <include layout="@layout/left_padding_line"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingLeft="1dp">
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:text="验证码"
-                android:textColor="#4a4a4a"
-                android:textSize="@dimen/text_size_14"/>
-
-            <EditText
-                android:id="@+id/ed_code"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@null"
-                android:hint="请输入验证码"
-                android:inputType="number"
-                android:textColor="#4a4a4a"
-                android:textSize="@dimen/text_size_14"/>
-
-            <TextView
-                android:id="@+id/tv_get_code"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="获取验证码"
-                android:textColor="@color/common_color"
-                android:textSize="@dimen/text_size_12"/>
         </LinearLayout>
 
         <include layout="@layout/left_padding_line"/>
@@ -133,6 +94,45 @@
                 android:inputType="textPassword"
                 android:textColor="#4a4a4a"
                 android:textSize="@dimen/text_size_14"/>
+        </LinearLayout>
+
+        <include layout="@layout/left_padding_line"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="1dp">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="验证码"
+                android:textColor="#4a4a4a"
+                android:textSize="@dimen/text_size_14"/>
+
+            <EditText
+                android:id="@+id/ed_code"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="请输入验证码"
+                android:inputType="number"
+                android:textColor="#4a4a4a"
+                android:textSize="@dimen/text_size_14"/>
+
+            <TextView
+                android:id="@+id/tv_get_code"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="获取验证码"
+                android:textColor="@color/common_color"
+                android:textSize="@dimen/text_size_12"/>
         </LinearLayout>
     </LinearLayout>
 

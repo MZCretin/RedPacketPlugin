@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.cretin.www.redpacketplugin.utils.CustomProgressDialog;
+import com.umeng.analytics.MobclickAgent;
 
 public abstract class BaseActivity extends AppCompatActivity {
     private CustomProgressDialog dialog;
@@ -46,6 +47,20 @@ public abstract class BaseActivity extends AppCompatActivity {
         if ( dialog != null && dialog.isShowing() ) {
             dialog.dismiss();
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //注：回调 1
+        MobclickAgent.onResume(this);
     }
 
     /**
